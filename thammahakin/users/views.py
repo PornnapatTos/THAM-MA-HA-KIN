@@ -11,12 +11,7 @@ from django.contrib import admin as admin_r
 #         return HttpResponseRedirect(reverse("login"))
 #     else :
 #         if not request.user.is_staff :
-#             student = Student.objects.get(student_id=request.user)
-#             courses = Course.objects.all()
-#             return render(request, "users/index.html", {
-#                 "courses" : courses,
-#                 "student" : student
-#             })
+#             return render(request, "users/index.html")
 #         else :
 #             return HttpResponseRedirect(reverse("admin"))
 
