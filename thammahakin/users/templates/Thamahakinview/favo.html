@@ -1,0 +1,7 @@
+{% extends "users/layout.html" %}
+{%block title %}About{% endblock%}
+{% block body %}
+{% for favo in favos %}
+    {{favo.t_user}}
+{% endfor %}
+{% endblock %}
