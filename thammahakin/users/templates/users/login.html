@@ -1,18 +1,27 @@
 {% extends "users/layout.html" %}
 {%block title %}Login{% endblock%}
 {% block body %}
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'register' %}">Register</a>
-    <div>
-        <div>
+     <div class="login">
+        <div class="login-container">
             {% if message %}
-                <div>{{ message }}</div>
+                <div class="alert-login">{{ message }}</div>
             {% endif %}
+
             <form action="{% url 'login' %}" method="POST" class="input-form" >
                 {% csrf_token %}
-                <input type="text" placeholder="user" name="username" class="user">
-                <input type="password" placeholder="password" name="password" class="pass">
+                <div class="head-login">
+                    <img src="static/image/Icon.png">
+                    <h3>THAM-MA-HA-KIN</h3>
+                    <h6>Please login to continue.</h6>
+                </div>
+                <input type="text" placeholder="username" name="username" class="user">
+                <input type="password" placeholder="password" name="password" class="pwd">
                 <input type="submit" value="Login" class="submit">
+                <div class="footer-login">
+                    <h6>Don't have an account?</h6>
+                    <button><a href="{% url 'register' %}">Register</a></button>
+                </div>
+
             </form>
         </div>
     </div>
