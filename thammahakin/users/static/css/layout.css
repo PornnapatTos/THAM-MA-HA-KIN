@@ -48,11 +48,12 @@ h1{
     background-repeat: no-repeat;
 }
 
-.about h2{
+.about h3{
     color: #545454;
     margin: 10px;
     font-weight: lighter;
     text-indent: 100px;
+    padding: 20px 70px 0px;
 }
 
 h2{
@@ -67,7 +68,7 @@ h2{
     margin: 40px;
 }
 
-.about h3{
+.member h3{
     color: #545454;
     margin: 10px;
     font-weight: lighter;
