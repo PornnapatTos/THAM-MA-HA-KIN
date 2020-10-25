@@ -116,8 +116,8 @@ p{
 }
 
 .login-container{
-    width: 20vw;
-    height: 48vh;
+    width: 245px;
+    height: 295px;
     display: grid;
     justify-content: center;
     background-color: #88DDBB;
@@ -204,8 +204,8 @@ h6{
 }
 
 .user, .pwd{
-    width: 12vw;
-    height: 4vh;
+    width: 165px;
+    height: 22px;
     font-size: 14px;
     align-self: center;
     padding: 5px 10px;
@@ -214,7 +214,7 @@ h6{
     border: 1px solid #E5E5E5;
     border-radius: 8px;
 }
-.user-regis, .pwd-regis, .lname, .sname, .phone, .line, .mail, .ig, .fb{
+.user-regis, .pwd-regis, .lname, .sname{
     width: 25vw;
     height: 3vh;
     font-size: 14px;
@@ -227,8 +227,8 @@ h6{
 }
 
 .submit{
-    width: 13vw;
-    height: 5vh;
+    width: 188px;
+    height: 30px;
     font-size: 18px;
     align-self: center;
     background-color: #FCE27C;

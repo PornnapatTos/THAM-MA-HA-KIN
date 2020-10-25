@@ -15,9 +15,10 @@ class Thammart(models.Model):
     t_detail = models.CharField(max_length=200)
     t_cat = models.CharField(max_length=20, choices=status)
     t_count = models.PositiveIntegerField()
-
+    t_price = models.CharField(max_length=10)
+    t_image = models.CharField(max_length=1000)
     def __str__(self) :
-        return f"{self.t_user} : {self.t_name} {self.t_detail} {self.t_cat} {self.t_count}"
+        return f"{self.t_user} : {self.t_name} {self.t_price} {self.t_detail} {self.t_cat} {self.t_count} "
 
     # def __str__(self) :
     #     return f"{self.t_user} : {self.t_name} {self.t_detail} {self.t_cat}"
