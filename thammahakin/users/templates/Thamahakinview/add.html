@@ -13,8 +13,8 @@
         <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
             </div>
-                <input type="text" placeholder="product" name="product" class="user-regis"></br>
-                <input type="text" placeholder="price" name="price" class="lname"></br>
+                <input type="text" placeholder="product" name="product" class="user-regis"> {% if error.product %} {{ error.product }} {% endif %}</br>
+                <input type="text" placeholder="price" name="price" class="lname">{% if error.price %} {{ error.price }} {% endif %}</br>
                 <!--<input type="text" placeholder="type" name="type" class="sname"></br>-->
                 <select name="type" id="type" multiple="multiple">
                   <option value="food">Food</option>
@@ -24,11 +24,11 @@
                   <option value="electronic">Electronic</option>
                   <option value="others">Others</option>
                 </select></br>
-                <input type="text" placeholder="detail" name="detail" class="pwd-regis"></br>
+                <input type="text" placeholder="detail" name="detail" class="pwd-regis">{% if error.detail %} {{ error.detail }} {% endif %}</br>
                 <input type="text" placeholder="line" name="line" class="pwd-regis"></br>
                 <input type="text" placeholder="instagram" name="instagram" class="pwd-regis"></br>
                 <input type="text" placeholder="facebook" name="facebook" class="pwd-regis"></br>
-                <input type="text" placeholder="tel" name="tel" class="pwd-regis"></br>
+                <input type="text" placeholder="tel" name="tel" class="pwd-regis">{% if error.tel %} {{ error.tel }} {% endif %}</br>
                 Select image to upload:
                 <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
                 <input type="submit" value="Add" class="signup"></br>

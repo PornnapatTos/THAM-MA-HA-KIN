@@ -25,7 +25,12 @@
                     {% csrf_token %}
                     <button name="detail" type="submit" value="{{ product.t_detail }}">detail</button>
                 </form>
+                <form action="{% url 'remove_product' %}" method="POST">
+                    {% csrf_token %}
+                    <button name="detail" type="submit" value="{{ product.id }}">delete</button>
+                </form>
             </div>
+
             {% endfor %}
         {% endif %}
     </div>

@@ -20,11 +20,9 @@ class Thammart(models.Model):
     t_price = models.CharField(max_length=10)
     t_image = models.CharField(max_length=1000)
     t_date = models.DateTimeField(default=timezone.now)
+
     def __str__(self) :
         return f"{self.t_user} : {self.t_name} {self.t_price} {self.t_detail} {self.t_cat} {self.t_count} {self.t_date}"
-
-    # def __str__(self) :
-    #     return f"{self.t_user} : {self.t_name} {self.t_detail} {self.t_cat}"
 
 class Profile(models.Model):
     p_user = models.CharField(max_length=10)
@@ -40,7 +38,5 @@ class Profile(models.Model):
     def __str__(self) :
         return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_phone} {self.p_mail} {self.p_instragram} {self.p_facebook} {self.p_line}"
 
-    # def __str__(self) :
-    #     return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_mail}"
 
 

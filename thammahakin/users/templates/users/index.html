@@ -8,19 +8,16 @@
     <div>
         <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'about_view' %}">About</a>
-        <a href="{% url 'favo' %}">favo</a>
-        <a href="{% url 'add_view' %}">add</a>
-        <a href="{% url 'thammart' %}">thammart</a>
         <a href="{% url 'logout' %}">Logout</a>
         <form action="{% url 'index' %}" method="POST" class="input-form">
             {% csrf_token %}
-            <li><input type="submit" name="intro" value="แนะนำ"></li>
-            <li><input type="submit" name="food" value="อาหาร"></li>
-            <li><input type="submit" name="closet" value="เสื้อผ้า"></li>
-            <li><input type="submit" name="accessary" value="เครื่องประดับ"></li>
-            <li><input type="submit" name="beauty" value="เครื่องสำอาง"></li>
-            <li><input type="submit" name="electronic" value="อุปกรณ์ไฟฟ้า"></li>
-            <li><input type="submit" name="others" value="อื่นๆ"></li>
+            <li><button name="intro" type="submit" value="intro">แนะนำ</button></li>
+            <li><button name="food" type="submit" value="food">อาหาร</button></li>
+            <li><button name="closet" type="submit" value="closet">เสื้อผ้า</button></li>
+            <li><button name="accessary" type="submit" value="accessary">เครื่องประดับ</button></li>
+            <li><button name="beauty" type="submit" value="beauty">เครื่องสำอาง</button></li>
+            <li><button name="electronic" type="submit" value="electronic">อุปกรณ์ไฟฟ้า</button></l
+            <li><button name="others" type="submit" value="others">อื่นๆ</button></li>
         </form>
         <!--{% for image in images %}-->
         <!--{{image}}-->
