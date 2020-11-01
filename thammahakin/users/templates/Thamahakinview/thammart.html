@@ -1,0 +1,32 @@
+{% extends "users/layout.html" %}
+{%block title %} Home {% endblock%}
+{% block body %}
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'about_view' %}">About</a>
+        <a href="{% url 'favo' %}">favo</a>
+        <a href="{% url 'add_view' %}">add</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <div>
+        {% if not mymart %}
+        <h3>No product</h3>
+        {% else %}
+            {% for product,images in mymart %}
+                {% for image in images %}
+                    <div><img src="{{image}}"></div>
+                {% endfor %}
+            <div>{{product.t_name}} {{product.t_price}}
+                <form action="{% url 'detail' %}" method="POST">
+                    {% csrf_token %}
+                    <button name="detail" type="submit" value="{{ product.t_detail }}">detail</button>
+                </form>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

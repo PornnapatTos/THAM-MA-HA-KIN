@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div>
         <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'about_view' %}">About</a>
         <a href="{% url 'favo' %}">favo</a>
         <a href="{% url 'logout' %}">Logout</a>
         <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data" >
@@ -30,7 +30,7 @@
                 <input type="text" placeholder="facebook" name="facebook" class="pwd-regis"></br>
                 <input type="text" placeholder="tel" name="tel" class="pwd-regis"></br>
                 Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload"></br>
+                <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
                 <input type="submit" value="Add" class="signup"></br>
         </form>
     </div>
