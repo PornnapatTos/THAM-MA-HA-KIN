@@ -39,23 +39,29 @@ def add_user(request) :
         password = request.POST["password"]
         c_password = request.POST["cpassword"]
         if user_id and name and sname and password and c_password :
-            user = Profile.objects.filter(p_user=user_id)
-            # print(user)
-            if not user:
-                if password == c_password :
-                    User.objects.create_user(username=user_id, password=password,)
-                    Profile.objects.create(p_user=user_id,p_name=name,p_sname=sname)
-                    return render(request, "users/login.html", {
-                        "message": "register success!"
-                    })
+            if user_id.isnumeric() :
+                user = Profile.objects.filter(p_user=user_id)
+                # print(user)
+                if not user:
+                    if password == c_password :
+                        User.objects.create_user(username=user_id, password=password,)
+                        Profile.objects.create(p_user=user_id,p_name=name,p_sname=sname)
+                        return render(request, "users/login.html", {
+                            "message": "register success!"
+                        })
+                    else :
+                        return render(request, "users/register.html", {
+                            "message": "fail to register!"
+                        })
                 else :
-                    return render(request, "users/register.html", {
-                        "message": "fail to register!"
-                    })
+                    return render(request, "users/login.html", {
+                            "message": "you are already in website!"
+                        })
             else :
-                return render(request, "users/login.html", {
-                        "message": "you are already in website!"
-                    })
+                return render(request, "users/register.html", {
+                    "message": "fail to register!"
+                })
+
         else :
             return render(request, "users/register.html", {
                         "message": "Please complete this registration form."

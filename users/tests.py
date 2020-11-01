@@ -226,9 +226,17 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/register.html')
         self.assertEqual(response.context["message"],"fail to register!")
 
-    #กรณีที่ register สมบูรณ์
+    # กรณีที่กรอก username เป็นอักขระ
     def test_register_5(self):
         """ check in test_register_5!! """
+        response = self.client.post(self.add_user_url,{'username':'student','name':'student','sname':'three','password':'123455','cpassword':'123456'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/register.html')
+        self.assertEqual(response.context["message"],"fail to register!")
+
+    #กรณีที่ register สมบูรณ์
+    def test_register_6(self):
+        """ check in test_register_6!! """
         response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123456','cpassword':'123456'})
         self.assertEqual(response.status_code, 200)
         print(response)
