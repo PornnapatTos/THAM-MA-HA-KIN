@@ -145,91 +145,91 @@ def about_view(request):
     else :
         return HttpResponseRedirect(reverse("login"))
 
-# def add_view(request):
-#     if request.user.is_authenticated :
-#         if not request.user.is_staff :
-#             return render(request, "Thamahakinview/add.html")
-#     else :
-#         return HttpResponseRedirect(reverse("login"))
+def add_view(request):
+    if request.user.is_authenticated :
+        if not request.user.is_staff :
+            return render(request, "Thamahakinview/add.html")
+    else :
+        return HttpResponseRedirect(reverse("login"))
 
-# def add_product(request):
-#     if request.user.is_authenticated :
-#         if not request.user.is_staff :
-#             profile = Profile.objects.get(p_user=request.user)
-#             if request.method == 'POST':
-#                 try:
-#                     product =  request.POST["product"]
-#                     price = request.POST["price"]
-#                     cat = request.POST["type"]
-#                     detail = request.POST["detail"]
-#                     line = request.POST["line"]
-#                     instagram = request.POST["instagram"]
-#                     facebook = request.POST["facebook"]
-#                     tel = request.POST["tel"]
-#                     if product and price and detail and tel:
-#                         pass
-#                     else:
-#                         error = {}
-#                         if product:
-#                             pass
-#                         else:
-#                             error['product'] = 'Product is required'
-#                         if price:
-#                             pass
-#                         else:
-#                             error['price'] = 'Price is required'
-#                         if detail:
-#                             pass
-#                         else:
-#                             error['detail'] = 'Detail is required'
-#                         if tel:
-#                             pass
-#                         else:
-#                             error['tel'] = 'Tel is required'
-#                         print(error)
-#                         return render(request, "Thamahakinview/add.html",{
-#                             "error": error
-#                         })
-#                     fileToUpload = request.FILES["fileToUpload"]
-#                     mime_type = ''
-#                     items = []
-#                     for file in request.FILES.getlist('fileToUpload'):
-#                         path = default_storage.save(
-#                                 f"/home/ubuntu/THAMMAHAKIN/thammahakin/users/templates/temporaryfile/{file.name}",
-#                                 ContentFile(file.read()))
-#                         typefile = file.name
-#                         typefile = typefile[(typefile.rfind('.')+1):len(typefile)]
-#                         # if typefile not 'png' and not 'jpg' and not 'jpeg':
-#                         #     return
-#                         file_medate = {
-#                             'name': file.name,
-#                             'parents':  [floder_id]
-#                         }
-#                         if(typefile == 'png'):
-#                             mime_type = 'image/png'
-#                         elif(typefile == 'jpg' or 'jpeg'):
-#                             mime_type = 'image/jpeg'
-#                         media = MediaFileUpload(path, mimetype = mime_type)
-#                         results = service.files().create(
-#                             body=file_medate,
-#                             media_body=media,
-#                             fields='id'
-#                             ).execute()
-#                         item = results.get('id')
-#                         items.append(item)
-#                         os.remove(path)
-#                     Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items)
-#                     product_new = Thammart.objects.get(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_price=price,t_image=items)
-#                     print(product_new)
-#                     products = Thammart.objects.all()
-#                     return render(request, "users/index.html", {
-#                     "products" : list(zip(products,image(products))),
-#                     })
-#                 except: return render(request, "Thamahakinview/add.html",{
-#                     "message": "กรุณาใส่รูปภาพ"
-#                 })
-#     else :
-#         return HttpResponseRedirect(reverse("login"))
+def add_product(request):
+    if request.user.is_authenticated :
+        if not request.user.is_staff :
+            profile = Profile.objects.get(p_user=request.user)
+            if request.method == 'POST':
+                try:
+                    product =  request.POST["product"]
+                    price = request.POST["price"]
+                    cat = request.POST["type"]
+                    detail = request.POST["detail"]
+                    line = request.POST["line"]
+                    instagram = request.POST["instagram"]
+                    facebook = request.POST["facebook"]
+                    tel = request.POST["tel"]
+                    if product and price and detail and tel:
+                        pass
+                    else:
+                        error = {}
+                        if product:
+                            pass
+                        else:
+                            error['product'] = 'Product is required'
+                        if price:
+                            pass
+                        else:
+                            error['price'] = 'Price is required'
+                        if detail:
+                            pass
+                        else:
+                            error['detail'] = 'Detail is required'
+                        if tel:
+                            pass
+                        else:
+                            error['tel'] = 'Tel is required'
+                        print(error)
+                        return render(request, "Thamahakinview/add.html",{
+                            "error": error
+                        })
+                    fileToUpload = request.FILES["fileToUpload"]
+                    mime_type = ''
+                    items = []
+                    for file in request.FILES.getlist('fileToUpload'):
+                        path = default_storage.save(
+                                f"/home/ubuntu/THAMMAHAKIN/thammahakin/users/templates/temporaryfile/{file.name}",
+                                ContentFile(file.read()))
+                        typefile = file.name
+                        typefile = typefile[(typefile.rfind('.')+1):len(typefile)]
+                        # if typefile not 'png' and not 'jpg' and not 'jpeg':
+                        #     return
+                        file_medate = {
+                            'name': file.name,
+                            'parents':  [floder_id]
+                        }
+                        if(typefile == 'png'):
+                            mime_type = 'image/png'
+                        elif(typefile == 'jpg' or 'jpeg'):
+                            mime_type = 'image/jpeg'
+                        media = MediaFileUpload(path, mimetype = mime_type)
+                        results = service.files().create(
+                            body=file_medate,
+                            media_body=media,
+                            fields='id'
+                            ).execute()
+                        item = results.get('id')
+                        items.append(item)
+                        os.remove(path)
+                    Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items)
+                    product_new = Thammart.objects.get(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_price=price,t_image=items)
+                    print(product_new)
+                    products = Thammart.objects.all()
+                    return render(request, "users/index.html", {
+                    "products" : list(zip(products,image(products))),
+                    })
+                except: return render(request, "Thamahakinview/add.html",{
+                    "message": "กรุณาใส่รูปภาพ"
+                })
+    else :
+        return HttpResponseRedirect(reverse("login"))
 
 # def remove_product(request):
 #     if request.user.is_authenticated :

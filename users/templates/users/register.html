@@ -2,21 +2,22 @@
 {%block title %}Register{% endblock%}
 {% block body %}
     <div class="register">
+        {% if message %}
+            <div class="alert-register">{{ message }}</div>
+        {% endif %}
         <div class="register-container">
-            {% if message %}
-                <div>{{ message }}</div>
-            {% endif %}
             <form action="{% url 'add_user' %}" method="POST" class="input-form" >
                 {% csrf_token %}
-                <div class="head-register">
+                <div class="head-sign">
                     <img src="static/image/Icon.png">
-                    <h2>THAM-MA-HA-KIN</h2>
-                </div>
+                    <h3>THAM-MA-HA-KIN</h3>
                     <h5>Welcome to THAMMAHAKIN. Please register to continue.</h5>
-
+                </div>
                     <input type="text" placeholder="username" name="username" class="user-regis">
-                    <input type="text" placeholder="name" name="name" class="lname">
-                    <input type="text" placeholder="surname" name="sname" class="sname">
+                    <div class="name-surname">
+                        <input type="text" placeholder="name" name="name" class="lname">
+                        <input type="text" placeholder="surname" name="sname" class="sname">
+                    </div>
                     <input type="password" placeholder="password" name="password" class="pwd-regis">
                     <input type="password" placeholder="confirm password" name="cpassword" class="pwd-regis">
                     <input type="submit" value="Register" class="signup">

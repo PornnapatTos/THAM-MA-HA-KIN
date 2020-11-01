@@ -2,17 +2,16 @@
 {%block title %}Login{% endblock%}
 {% block body %}
      <div class="login">
+        {% if message %}
+            <div class="alert-login">{{ message }}</div>
+        {% endif %}
         <div class="login-container">
-            {% if message %}
-                <div class="alert-login">{{ message }}</div>
-            {% endif %}
-
             <form action="{% url 'login' %}" method="POST" class="input-form" >
                 {% csrf_token %}
-                <div class="head-login">
+                <div class="head-sign">
                     <img src="static/image/Icon.png">
                     <h3>THAM-MA-HA-KIN</h3>
-                    <h6>Please login to continue.</h6>
+                    <h5>Please login to continue.</h5>
                 </div>
                 <input type="text" placeholder="username" name="username" class="user">
                 <input type="password" placeholder="password" name="password" class="pwd">

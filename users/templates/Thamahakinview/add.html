@@ -5,34 +5,44 @@
         <div>{{ message }}</div>
     {% endif %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div>
-        <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'about_view' %}">About</a>
-        <a href="{% url 'favo' %}">favo</a>
+    <div class="top-nav">
+        <a href="{% url 'index' %}">
+            <img src="static/image/Icon.png">
+            <h1>THAM-MA-HA-KIN</h1>
+        </a>
         <a href="{% url 'logout' %}">Logout</a>
-        <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data" >
-            {% csrf_token %}
-            </div>
-                <input type="text" placeholder="product" name="product" class="user-regis"> {% if error.product %} {{ error.product }} {% endif %}</br>
-                <input type="text" placeholder="price" name="price" class="lname">{% if error.price %} {{ error.price }} {% endif %}</br>
-                <!--<input type="text" placeholder="type" name="type" class="sname"></br>-->
-                <select name="type" id="type" multiple="multiple">
-                  <option value="food">Food</option>
-                  <option value="closet">Closet</option>
-                  <option value="accessary">Accessary</option>
-                  <option value="beauty">Beauty</option>
-                  <option value="electronic">Electronic</option>
-                  <option value="others">Others</option>
-                </select></br>
-                <input type="text" placeholder="detail" name="detail" class="pwd-regis">{% if error.detail %} {{ error.detail }} {% endif %}</br>
-                <input type="text" placeholder="line" name="line" class="pwd-regis"></br>
-                <input type="text" placeholder="instagram" name="instagram" class="pwd-regis"></br>
-                <input type="text" placeholder="facebook" name="facebook" class="pwd-regis"></br>
-                <input type="text" placeholder="tel" name="tel" class="pwd-regis">{% if error.tel %} {{ error.tel }} {% endif %}</br>
-                Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
-                <input type="submit" value="Add" class="signup"></br>
-        </form>
+    </div>
+    <div class="add-pd">
+        <div class="side-nav2">
+            <a href="">My Mart</a>
+            <a href="{% url 'add_view' %}">Add Product</a>
+        </div>
+        <div class="detail-product">
+            <h2>THAMMA > Add Product</h2>
+            <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data" style="margin-left: 170px; width: 425px; margin-bottom: 50px;" >
+                {% csrf_token %}
+
+                    Product: <input type="text" placeholder="product" name="product" class="user-regis" style="margin-left: 16px;"></br>
+                    Price:   <input type="text" placeholder="price" name="price" class="lname" style="margin-left: 35px;"></br>
+                    <!--<input type="text" placeholder="type" name="type" class="sname"></br>-->
+                    Category: </br><select name="type" id="type" multiple="multiple" class="category" style="margin-left: 80px;">
+                    <option value="food">Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others">Others</option>
+                    </select></br>
+                    Detail:  <input type="text" placeholder="detail" name="detail" class="pwd-regis" style="margin-left: 30px;"></br>
+                    Line:    <input type="text" placeholder="line" name="line" class="pwd-regis" style="margin-left: 41px;"></br>
+                    Instagram: <input type="text" placeholder="instagram" name="instagram" class="pwd-regis"></br>
+                    Facebook:  <input type="text" placeholder="facebook" name="facebook" class="pwd-regis"></br>
+                    Tel:       <input type="text" placeholder="tel" name="tel" class="pwd-regis" style="margin-left: 49px;"></br>
+                    Select image to upload:
+                    <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
+                    <input type="submit" value="Add" class="signup" style="width: 250px; margin: 15px; margin-left: 70px; margin-right: 70px;"></br>
+            </form>
+        </div>
     </div>
 
 {% endblock %}
