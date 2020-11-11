@@ -127,14 +127,14 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
-# def favorite_view(request):
-#     if request.user.is_authenticated :
-#         if not request.user.is_staff :
-#             favourite = Profile.objects.get(p_user = request.user.username)
-#             print(favourite.p_fav.all())
-#             return  render(request, "Thamahakinview/favo.html", {"favos": favourite.p_fav.all()})
-#     else :
-#         return HttpResponseRedirect(reverse("login"))
+def favorite_view(request):
+    if request.user.is_authenticated :
+        if not request.user.is_staff :
+            favourite = Profile.objects.get(p_user = request.user.username)
+            print(favourite.p_fav.all())
+            return  render(request, "Thamahakinview/favo.html", {"favos": favourite.p_fav.all()})
+    else :
+        return HttpResponseRedirect(reverse("login"))
 
 # def trending_now
 
@@ -231,59 +231,63 @@ def add_product(request):
     else :
         return HttpResponseRedirect(reverse("login"))
 
-# def remove_product(request):
-#     if request.user.is_authenticated :
-#         if not request.user.is_staff :
-#             profile = Profile.objects.get(p_user=request.user)
-#             if request.method == "POST" :
-#                 r_product = request.POST["detail"]
-#                 product = Thammart.objects.filter(id=r_product)
-#                 productIm = Thammart.objects.get(id=r_product)
-#                 imagess = productIm.t_image.split()
-#                 for imagea in imagess:
-#                     imagea = imagea.replace("[","")
-#                     imagea = imagea.replace("]","")
-#                     imagea = imagea.replace("'","")
-#                     imagea = imagea.replace(",","")
-#                     service.files().delete(fileId=imagea).execute()
-#                 product.delete()
-#                 products = Thammart.objects.filter(t_user=request.user)
-#             return render(request, "Thamahakinview/thammart.html",{
-#                 "message" : "Successful Remove Product.",
-#                 "mymart" : list(zip(products,image(products))),
-#             })
-#     else :
-#         return HttpResponseRedirect(reverse("login"))
+def remove_product(request):
+    if request.user.is_authenticated :
+        if not request.user.is_staff :
+            profile = Profile.objects.get(p_user=request.user)
+            if request.method == "POST" :
+                r_product = request.POST["remove"]
+                product = Thammart.objects.get(t_detail=r_product)
+                productIm = Thammart.objects.get(t_detail=r_product)
+                imagess = productIm.t_image.split()
+                for imagea in imagess:
+                    imagea = imagea.replace("[","")
+                    imagea = imagea.replace("]","")
+                    imagea = imagea.replace("'","")
+                    imagea = imagea.replace(",","")
+                    service.files().delete(fileId=imagea).execute()
+                product.delete()
+                products = Thammart.objects.filter(t_user=request.user)
+            return render(request, "Thamahakinview/thammart.html",{
+                "message" : "Successful Remove Product.",
+                "mymart" : list(zip(products,image(products))),
+            })
+    else :
+        return HttpResponseRedirect(reverse("login"))
 
-# def thammart(request):
-#     if not request.user.is_authenticated :
-#         return HttpResponseRedirect(reverse("login"))
-#     else :
-#         if not request.user.is_staff :
-#             products = Thammart.objects.filter(t_user=request.user)
-#             return render(request, "Thamahakinview/thammart.html", {
-#                 "mymart" : list(zip(products,image(products))),
-#             })
+def thammart(request):
+    if not request.user.is_authenticated :
+        return HttpResponseRedirect(reverse("login"))
+    else :
+        if not request.user.is_staff :
+            products = Thammart.objects.filter(t_user=request.user)
+            return render(request, "Thamahakinview/thammart.html", {
+                "mymart" : list(zip(products,image(products))),
+            })
 
-# def detail(request):
-#     if not request.user.is_authenticated :
-#         return HttpResponseRedirect(reverse("login"))
-#     else :
-#         if request.method == "POST" :
-#             d_product = request.POST["detail"]
-#             print(d_product)
-#             product = Thammart.objects.get(t_detail=d_product)
-#             images = product.t_image.split()
-#             path = []
-#             for image in images:
-#                 image = image.replace("[","")
-#                 image = image.replace("]","")
-#                 image = image.replace("'","")
-#                 image = image.replace(",","")
-#                 path.append(f'https://drive.google.com/uc?id={image}')
-#             return render(request, "Thamahakinview/detail.html",{
-#                 "product" : product,
-#                 "images" : path,
-#             })
+def detail(request):
+    if not request.user.is_authenticated :
+        return HttpResponseRedirect(reverse("login"))
+    else :
+        if request.method == "POST" :
+            d_product = request.POST["detail"]
+            print(d_product)
+            product = Thammart.objects.get(t_detail=d_product)
+            images = product.t_image.split()
+            path = []
+            for image in images:
+                image = image.replace("[","")
+                image = image.replace("]","")
+                image = image.replace("'","")
+                image = image.replace(",","")
+                path.append(f'https://drive.google.com/uc?id={image}')
+            return render(request, "Thamahakinview/detail.html",{
+                "product" : product,
+                "images" : path,
+            })
 
-
+def edit(request):
+    if not request.user.is_authenticated :
+        return HttpResponseRedirect(reverse("login"))
+    else :
+        
