@@ -32,6 +32,10 @@
                             {% csrf_token %}
                             <button name="detail" type="submit" value="{{ product.t_detail }}">detail</button>
                         </form>
+                        <form action="{% url 'edit' %}" method="POST">
+                            {% csrf_token %}
+                            <button name="edit" type="submit" value="{{ product.t_detail }}">edit</button>
+                        </form>
                     </div>
                     {% endfor %}
                 {% endif %}

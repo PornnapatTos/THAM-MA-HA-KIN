@@ -15,4 +15,7 @@ urlpatterns = [
     path('thammart', views.thammart, name='thammart'),
     path('detail', views.detail, name='detail'),
     path('remove_product', views.remove_product, name='remove_product'),
+    # path('search', views.search, name='search'),
+    path('edit', views.edit, name='edit'),
+    path('edit_product', views.edit_product, name='edit_product'),
 ]
