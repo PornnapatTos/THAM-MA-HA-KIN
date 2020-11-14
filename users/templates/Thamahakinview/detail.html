@@ -21,7 +21,7 @@
         <div>Product Price : {{product.t_price}}</div>
         <form action="{% url 'remove_product' %}" method="POST">
             {% csrf_token %}
-            <button name="remove" type="submit" value="{{ product.t_detail }}">remove</button>
+            <button name="remove" type="submit" value="{{ product.id }}">remove</button>
         </form>
     </div>
 {% endblock %}

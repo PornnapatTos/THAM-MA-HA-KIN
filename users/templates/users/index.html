@@ -32,7 +32,12 @@
             </div>
             <a href="{% url 'thammart' %}">THAMMART</a>
             <a href="{% url 'add_view' %}">Add</a>
-            <a href="">Fav</a>
+            <a href="{% url 'favo' %}">Fav</a>
+            <form action="{% url 'search' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="Search.." name="product">
+                <button type="submit" value="search"></button>
+            </form>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
         <div class="slideshow-container">
@@ -112,6 +117,7 @@
                 <h3>No product</h3>
                 {% else %}
                     {% for product,images in products %}
+                    <!--<a href="{% url 'detail' %}" value="{{ product.t_detail }}">-->
                         <div class="box-product">
                             <div class="frame">
                             {% for image in images %}
@@ -122,7 +128,12 @@
                                 <h4>{{product.t_name}}</h4>
                                 <h4>฿ {{product.t_price}}</h4>
                             </div>
+                            <form action="{% url 'favorite' %}" method="POST" class="input-form">
+                                {% csrf_token %}
+                                <button name="fav" type="submit" value="{{ product.id }}">fav</button>
+                            </form>
                         </div>
+                    <!--</a>-->
                     {% endfor %}
                 {% endif %}
             </div>

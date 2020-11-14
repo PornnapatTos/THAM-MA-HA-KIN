@@ -28,13 +28,14 @@
                             <div><img src="{{image}}"></div>
                         {% endfor %}
                     <div>{{product.t_name}} {{product.t_price}}
+                    <!--<a href="{% url 'detail' %}" value="{{ product.id }}">detail</a>-->
                         <form action="{% url 'detail' %}" method="POST">
                             {% csrf_token %}
-                            <button name="detail" type="submit" value="{{ product.t_detail }}">detail</button>
+                            <button name="detail" type="submit" value="{{ product.id }}">detail</button>
                         </form>
                         <form action="{% url 'edit' %}" method="POST">
                             {% csrf_token %}
-                            <button name="edit" type="submit" value="{{ product.t_detail }}">edit</button>
+                            <button name="edit" type="submit" value="{{ product.id }}">edit</button>
                         </form>
                     </div>
                     {% endfor %}

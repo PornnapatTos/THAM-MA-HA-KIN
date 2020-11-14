@@ -1,7 +1,30 @@
 {% extends "users/layout.html" %}
-{%block title %}About{% endblock%}
+{%block title %}Favorite{% endblock%}
 {% block body %}
-{% for favo in favos %}
-    {{favo.t_user}}
-{% endfor %}
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'about_view' %}">About</a>
+    <a href="{% url 'favo' %}">favo</a>
+    <a href="{% url 'add_view' %}">add</a>
+    <a href="{% url 'thammart' %}">thammart</a>
+    <a href="{% url 'logout' %}">Logout</a></br>
+    {% if not favos %}
+        <h3>No product</h3>
+        {% else %}
+            {% for product,images in favos %}
+                {% for image in images %}
+                    <div><img src="{{image}}"></div>
+                {% endfor %}
+            <div>{{product.t_name}} {{product.t_price}}
+            <!--<a href="{% url 'detail' %}" value="{{ product.id }}">detail</a>-->
+                <form action="{% url 'detail' %}" method="POST">
+                    {% csrf_token %}
+                    <button name="detail" type="submit" value="{{ product.id }}">detail</button>
+                </form>
+                <form action="{% url 'edit' %}" method="POST">
+                    {% csrf_token %}
+                    <button name="edit" type="submit" value="{{ product.id }}">edit</button>
+                </form>
+            </div>
+            {% endfor %}
+    {% endif %}
 {% endblock %}

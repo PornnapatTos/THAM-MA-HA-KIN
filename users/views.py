@@ -130,11 +130,34 @@ def logout_view(request):
 def favorite_view(request):
     if request.user.is_authenticated :
         if not request.user.is_staff :
-            favourite = Profile.objects.get(p_user = request.user.username)
-            print(favourite.p_fav.all())
-            return  render(request, "Thamahakinview/favo.html", {"favos": favourite.p_fav.all()})
+            favorite = Profile.objects.get(p_user = request.user.username)
+            # print(favorite.p_fav.all())
+            return  render(request, "Thamahakinview/favo.html", {
+                "favos": list(zip(favorite.p_fav.all(),image(favorite.p_fav.all()))),
+                # "favos": favorite.p_fav.all(),
+            })
     else :
         return HttpResponseRedirect(reverse("login"))
+
+def favorite(request):
+    if request.user.is_authenticated :
+        if not request.user.is_staff :
+            if request.method == "POST" :
+                profile = Profile.objects.get(p_user = request.user.username)
+                product = Thammart.objects.get(id=request.POST["fav"])
+                if product not in profile.p_fav.all() :
+                    profile.p_fav.add(product)
+                    message = "Successful Favorite Product."
+                else :
+                    message = "Product has already in Your Favorite."
+            products = Thammart.objects.all()
+            return render(request, "users/index.html", {
+                "products" : list(zip(products,image(products))),
+            })
+    else :
+        return HttpResponseRedirect(reverse("login"))
+
+
 
 # def trending_now
 
@@ -237,8 +260,8 @@ def remove_product(request):
             profile = Profile.objects.get(p_user=request.user)
             if request.method == "POST" :
                 r_product = request.POST["remove"]
-                product = Thammart.objects.get(t_detail=r_product)
-                productIm = Thammart.objects.get(t_detail=r_product)
+                product = Thammart.objects.get(id=r_product)
+                productIm = Thammart.objects.get(id=r_product)
                 imagess = productIm.t_image.split()
                 for imagea in imagess:
                     imagea = imagea.replace("[","")
@@ -272,7 +295,7 @@ def detail(request):
         if request.method == "POST" :
             d_product = request.POST["detail"]
             # print(d_product)
-            product = Thammart.objects.get(t_detail=d_product)
+            product = Thammart.objects.get(id=d_product)
             images = product.t_image.split()
             path = []
             for image in images:
@@ -292,7 +315,7 @@ def edit(request):
     else :
         if request.method == "POST" :
             d_product = request.POST["edit"]
-            product = Thammart.objects.get(t_detail=d_product)
+            product = Thammart.objects.get(id=d_product)
             images = product.t_image.split()
             path = []
             for image in images:
@@ -303,32 +326,23 @@ def edit(request):
                 path.append(f'https://drive.google.com/uc?id={image}')
             return render(request,"Thamahakinview/edit.html",{
                 "product" : product,
-                # "images" : path,
+                "images" : path,
             })
 
-# def search(request):
-#     if not request.user.is_authenticated :
-#         return HttpResponseRedirect(reverse("login"))
-#     else :
-#         if not request.user.is_staff :
-#             if request.method == "POST" :
-#                 course_id = request.POST["course_id"].upper()
-#                 if course_id == "*" :
-#                     courses = Course.objects.all()
-#                 else :
-#                     courses = Course.objects.filter(course_id__contains=course_id)
-#                     if len(courses) == 1 :
-#                         cc = [course for course in courses]
-#                         if cc[0].course_status == "close" :
-#                             if not request.user.is_staff :
-#                                 courses = ""
-#                 student = Student.objects.get(student_id=request.user)
-#             return render(request, "users/index.html",{
-#                     "courses" : courses,
-#                     "student" : student
-#                 })
-#         else :
-#             return HttpResponseRedirect(reverse("admin"))
+
+def search(request):
+    if not request.user.is_authenticated :
+        return HttpResponseRedirect(reverse("login"))
+    else :
+        if not request.user.is_staff :
+            if request.method == "POST" :
+                product = request.POST["product"]
+                print(product)
+                products = Thammart.objects.filter(t_name__contains=product)
+                return render(request, "users/index.html", {
+                    "products" : list(zip(products,image(products))),
+                })
+
 
 def edit_product(request):
     return render(request,"Thamahakinview/thammart.html")
