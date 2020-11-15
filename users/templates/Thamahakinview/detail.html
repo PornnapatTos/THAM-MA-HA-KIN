@@ -1,9 +1,6 @@
 {% extends "users/layout.html" %}
-{%block title %} Home {% endblock%}
+{%block title %} Edit {% endblock%}
 {% block body %}
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div>
         <a href="{% url 'index' %}">Home</a>
@@ -12,15 +9,83 @@
         <a href="{% url 'add_view' %}">add</a>
         <a href="{% url 'thammart' %}">thammart</a>
         <a href="{% url 'logout' %}">Logout</a></br>
-        {% for image in images %}
+        {% for image, key in images %}
             <div><img src="{{image}}"></div>
         {% endfor %}
-        <div>Product Name : {{product.t_name}} </div>
-        <div>Product Detail : {{product.t_detail}} </div>
-        <div>Product Category : {{product.t_cat}} </div>
-        <div>Product Price : {{product.t_price}} </div>
-        {% for channel,data in channels %}
-            <div>{{channel}} : {{data}}</div>
-        {% endfor %}
+        <form action="{% url 'edit_product' %}" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+            Name : <input type="text" name="name" value="{{product.t_name}}"></br>
+            Detail : <input type="text" name="detail" value="{{product.t_detail}}"></br>
+            Category : </br><select name="type" id="type" class="category" style="margin-left: 80px;">
+                {% if product.t_cat == "food" %}
+                    <option value="food" selected >Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others">Others</option>
+                {% elif product.t_cat == "closet" %}
+                    <option value="food">Food</option>
+                    <option value="closet" selected>Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others">Others</option>
+                {% elif product.t_cat == "accessary" %}
+                    <option value="food">Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary" selected>Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others">Others</option>
+                {% elif product.t_cat == "beauty" %}
+                    <option value="food">Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty" selected>Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others">Others</option>
+                {% elif product.t_cat == "electronic" %}
+                    <option value="food">Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic" selected>Electronic</option>
+                    <option value="others">Others</option>
+                {% elif product.t_cat == "others" %}
+                    <option value="food">Food</option>
+                    <option value="closet">Closet</option>
+                    <option value="accessary">Accessary</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="others" selected>Others</option>
+                {% endif %}
+                    </select></br>
+            Price : <input type="text" name="price" value="{{product.t_price}}"></br>
+            {% for channel,data in channels %}
+                {{channel}} : <input type="text" value="{{data}}" name="{{channel}}" class="pwd-regis" style="margin-left: 41px;"></br>
+            {% endfor %}
+            Select image to upload :
+            <input type="file" name="fileToUpload" id="fileToUpload" multiple>
+            {% if message %}
+                <div>{{ message }}</div>
+            {% endif %}
+            </br>
+            <ul>
+                เลือกรูปเพื่อลบ
+                {% for image, key in images %}
+                    {% if key == '1Vjl9_JsTuQGgc82Hw2m3XmfSkGGBz_a-' %}
+                        <div><img src="{{image}}"></div>
+                        รูป default ไม่สามารถลบได้
+                    {% else %}
+                        <li>
+                            <input type="checkbox" name="imageToDelete" id="imageToDelete" value={{key}} multiple/>
+                            <label for="imageToDelete"><img src="{{image}}" /></label>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <button name="edit" type="submit" value="{{ product.id }}">edit</button>
+        </form>
     </div>
 {% endblock %}
