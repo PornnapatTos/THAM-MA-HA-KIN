@@ -1,29 +1,91 @@
 {% extends "users/layout.html" %}
-{%block title %}Favorite{% endblock%}
+{%block title %} Favorite {% endblock%}
 {% block body %}
-    <a href="{% url 'index' %}">Home</a>
-    <a href="{% url 'about_view' %}">About</a>
-    <a href="{% url 'favo' %}">favo</a>
-    <a href="{% url 'add_view' %}">add</a>
-    <a href="{% url 'thammart' %}">thammart</a>
-    <a href="{% url 'logout' %}">Logout</a></br>
-    {% if not favos %}
-        <h3>No product</h3>
-        {% else %}
-            {% for product,images in favos %}
-                {% for image in images %}
-                    <div><img src="{{image}}"></div>
-                {% endfor %}
-            <div>{{product.t_name}} {{product.t_price}}
-                <form action="{% url 'edit' %}" method="POST">
-                    {% csrf_token %}
-                    <button name="edit" type="submit" value="{{ product.id }}">edit</button>
-                </form>
-                <form action="{% url 'remove_favorite' %}" method="POST">
-                    {% csrf_token %}
-                    <button name="remove_favo" type="submit" value="{{ product.id }}">remove favo</button>
-                </form>
-            </div>
-            {% endfor %}
-    {% endif %}
-{% endblock %}
+    <div class="favorite-container">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="top-nav">
+                <a href="{% url 'index' %}">
+                    <img src="static/image/Icon.png">
+                    <h1>THAM-MA-HA-KIN</h1>
+                </a>
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'about_view' %}">About</a>
+                <a href="{% url 'thammart' %}">THAMMART</a>
+                <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <div class="fav-product">
+            <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="favo-tab" data-toggle="tab" href="#favo" role="tab" aria-controls="favo" aria-selected="true">
+                        Favorite
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                        </svg>
+                        </a>
+                  </li>
+            </ul>
+            <div class="product">
+                {% if not favos %}
+                <div class="none-pd">
+                    <h3>No product</h3>
+                </div>
+                {% else %}
+                    {% for product,images in favos %}
+                        <div class="card" style="width: 16rem;">
+                            {% for image in images %}
+                                <div class="frame">
+                                    <img src="{{image}}">
+                                </div>
+                            {% endfor %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.t_name}}</h5>
+                                <h6 class="card-text">฿ {{product.t_price}}</h6>
+                                <!--<a href="{% url 'detail' %}" value="{{ product.id }}">detail</a>-->
+                                <div class="manage-product">
+                                    <a href="{% url 'detail' product.id %}">detail</a>
+                                            <!-- <form action="{% url 'detail' %}" method="POST" class="detail">
+                                                {% csrf_token %}
+                                                <button name="detail" type="submit" value="{{ product.id }}" class="btn-det">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                                      <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                                    </svg>
+                                                    detail
+                                                </button>
+                                            </form> -->
+                                            <!-- <form action="{% url 'edit' %}" method="POST" class="edit">
+                                                {% csrf_token %}
+                                                <button name="edit" type="submit" value="{{ product.id }}" class="btn-edit">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                    </svg>
+                                                    edit
+                                                </button>
+                                            </form> -->
+                                    <form action="{% url 'remove_favorite' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button name="remove_favo" type="submit" value="{{ product.id }}" class="btn-edit">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                            </svg>
+                                            remove favo
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endblock %}
+
+        </div>
+    </div>
