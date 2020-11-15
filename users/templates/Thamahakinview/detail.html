@@ -1,0 +1,26 @@
+{% extends "users/layout.html" %}
+{%block title %} Home {% endblock%}
+{% block body %}
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'about_view' %}">About</a>
+        <a href="{% url 'favo' %}">favo</a>
+        <a href="{% url 'add_view' %}">add</a>
+        <a href="{% url 'thammart' %}">thammart</a>
+        <a href="{% url 'logout' %}">Logout</a></br>
+        {% for image in images %}
+            <div><img src="{{image}}"></div>
+        {% endfor %}
+        <div>Product Name : {{product.t_name}} </div>
+        <div>Product Detail : {{product.t_detail}} </div>
+        <div>Product Category : {{product.t_cat}} </div>
+        <div>Product Price : {{product.t_price}} </div>
+        {% for channel,data in channels %}
+            <div>{{channel}} : {{data}}</div>
+        {% endfor %}
+    </div>
+{% endblock %}

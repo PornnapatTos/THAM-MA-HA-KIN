@@ -1,0 +1,142 @@
+{% extends "users/layout.html" %}
+{%block title %} Home {% endblock%}
+{% block body %}
+    <div class="index">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="top-nav">
+            <a href="{% url 'index' %}">
+                <img src="static/image/Icon.png">
+                <h1>THAM-MA-HA-KIN</h1>
+            </a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about_view' %}">About</a>
+            <div class="dropdown">
+                <button class="dropbtn">Category
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <form action="{% url 'index' %}" method="POST" class="input-form">
+                        {% csrf_token %}
+                        <button name="intro" type="submit" value="intro">แนะนำ</button>
+                        <button name="food" type="submit" value="food">อาหาร</button>
+                        <button name="closet" type="submit" value="closet">เสื้อผ้า</button>
+                        <button name="accessary" type="submit" value="accessary">เครื่องประดับ</button>
+                        <button name="beauty" type="submit" value="beauty">เครื่องสำอาง</button>
+                        <button name="electronic" type="submit" value="electronic">อุปกรณ์ไฟฟ้า</button>
+                        <button name="others" type="submit" value="others">อื่นๆ</button>
+                    </form>
+                </div>
+            </div>
+            <a href="{% url 'thammart' %}">THAMMART</a>
+            <a href="{% url 'add_view' %}">Add</a>
+            <a href="{% url 'favo' %}">Fav</a>
+            <form action="{% url 'search' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="Search.." name="product">
+                <button type="submit" value="search"></button>
+            </form>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+              <img src="../../static/image/banner.png" style="width:100%; height: 100%;" >
+            </div>
+
+            <div class="mySlides fade">
+              <img src="../../static/image/banner.png" style="width:100%; height: 100%;">
+            </div>
+
+            <div class="mySlides fade">
+              <img src="../../static/image/banner.png" style="width:100%; height: 100%;">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        </div>
+            <!-- <br> -->
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+              showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+              showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("dot");
+              if (n > slides.length) {slideIndex = 1}
+              if (n < 1) {slideIndex = slides.length}
+              for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";
+              }
+              for (i = 0; i < dots.length; i++) {
+                  dots[i].className = dots[i].className.replace(" active", "");
+              }
+              slides[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " active";
+            }
+        </script>
+
+        <div class="main">
+            <div class="category">
+                <form action="{% url 'index' %}" method="POST" class="input-form">
+                    {% csrf_token %}
+                    <button name="intro" type="submit" value="intro">แนะนำ</button>
+                    <button name="food" type="submit" value="food">อาหาร</button>
+                    <button name="closet" type="submit" value="closet">เสื้อผ้า</button>
+                    <button name="accessary" type="submit" value="accessary">เครื่องประดับ</button>
+                    <button name="beauty" type="submit" value="beauty">เครื่องสำอาง</button>
+                    <button name="electronic" type="submit" value="electronic">อุปกรณ์ไฟฟ้า</button>
+                    <button name="others" type="submit" value="others">อื่นๆ</button>
+                </form>
+            </div>
+            <!--{% for image in images %}-->
+            <!--{{image}}-->
+            <!--<img src="{{image}}">-->
+            <!--{% endfor %}-->
+
+            <div class="product-show">
+                {% if not products %}
+                <h3>No product</h3>
+                {% else %}
+                    {% for product,images in products %}
+                    <a href="{% url 'detail' product.id %}">
+                        <div class="box-product">
+                            <div class="frame">
+                            {% for image in images %}
+                                <img src="{{image}}">
+                            {% endfor %}
+                            </div>
+                            <div class="text">
+                                <h4>{{product.t_name}}</h4>
+                                <h4>฿ {{product.t_price}}</h4>
+                            </div>
+                            <form action="{% url 'favorite' %}" method="POST" class="input-form">
+                                {% csrf_token %}
+                                <button name="fav" type="submit" value="{{ product.id }}">fav</button>
+                            </form>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
