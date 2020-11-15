@@ -1,6 +1,7 @@
 .thammart-container{
     position: absolute;
     width: 100vw;
+    min-height: 960px;
     background-image: url("/static/image/website-bg.png");
     font-family: 'Kanit', sans-serif;
 }
