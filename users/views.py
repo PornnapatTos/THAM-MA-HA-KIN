@@ -26,7 +26,6 @@ service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPE)
 
 # Path for temporaryfile image
 PATH_IMAGE = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'thammahakin/users/templates/temporaryfile')
-print(PATH_IMAGE)
 
 # Create your views here.
 
@@ -215,9 +214,6 @@ def uploadImage(request, fileToUpload):
     mime_type = ''
     items = []
     for file in request.FILES.getlist('fileToUpload'):
-        path = default_storage.save(
-                os.path.join(PATH_IMAGE,file.name),
-                ContentFile(file.read()))
         typefile = file.name
         typefile = typefile[(typefile.rfind('.')+1):len(typefile)]
         file_medate = {
@@ -226,8 +222,13 @@ def uploadImage(request, fileToUpload):
         }
         if(typefile == 'png'):
             mime_type = 'image/png'
-        elif(typefile == 'jpg' or 'jpeg'):
+        elif(typefile == 'jpg' or typefile == 'jpeg'):
             mime_type = 'image/jpeg'
+        else:
+            return False
+        path = default_storage.save(
+                os.path.join(PATH_IMAGE,file.name),
+                ContentFile(file.read()))
         media = MediaFileUpload(path, mimetype = mime_type)
         results = service.files().create(
             body=file_medate,
@@ -266,9 +267,13 @@ def add_product(request):
                 if request.POST.get('fileToUpload', True):
                     fileToUpload = request.FILES["fileToUpload"]
                     items = uploadImage(request, fileToUpload)
-                    Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items,t_channel=t_channel)
-                    product_new = Thammart.objects.get(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_price=price,t_image=items,t_channel=t_channel)
-                    # print(product_new)
+                    if items == False:
+                        error['image'] = 'Type files only .png and .jpg/.jpge'
+                        return render(request, "Thamahakinview/add.html",{
+                            "error": error
+                        })
+                    else:
+                        Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items,t_channel=t_channel)
                     products = Thammart.objects.all()
                     return render(request, "users/index.html", {
                     "products" : list(zip(products,image(products))),
@@ -324,7 +329,6 @@ def thammart(request):
             })
         else :
             return HttpResponseRedirect(reverse("logout"))
-
 
 def detail(request,product_id):
     print(product_id)
@@ -392,7 +396,6 @@ def search(request):
         else :
             return HttpResponseRedirect(reverse("logout"))
 
-
 def edit_product(request):
     if not request.user.is_authenticated :
         return HttpResponseRedirect(reverse("login"))
@@ -404,7 +407,7 @@ def edit_product(request):
                 product.t_detail = request.POST["detail"]
                 product.t_cat = request.POST["type"]
                 product.t_price = request.POST["price"]
-                message = "Edit SuccessFul"
+                message = "Edit SuccessFul."
                 product.save()
                 product = Thammart.objects.get(id=request.POST["edit"])
                 images = product.t_image.split()
@@ -435,16 +438,23 @@ def edit_product(request):
                 if request.POST.get('fileToUpload', True):
                     fileToUpload = request.FILES["fileToUpload"]
                     itemUpload = uploadImage(request, fileToUpload)
+                    if itemUpload == False:
+                        channel = ["Line","Instagram","facebook","Phone Number"]
+                        return render(request,"Thamahakinview/edit.html",{
+                            "product" : product,
+                            "images" : list(zip(pathgoogle,preitems)),
+                            "channels" : list(zip(channel,ast.literal_eval(product.t_channel))),
+                            "message" : "upload only .phr and .jpg/.jpge"
+                        })
                     for itemUp in itemUpload:
                         items.append(itemUp)
                         pathgoogle.append(f'https://drive.google.com/uc?id={itemUp}')
-                print(items)
                 if items == []:
-                    product.t_image = '1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS'
+                    product.t_image = '1JbgCT6eguA135YZIjhAWc3fGDu-E7__S'
                 else:
-                    if '1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS' in items:
-                        items.remove('1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS')
-                        pathgoogle.remove('https://drive.google.com/uc?id=1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS')
+                    if '1JbgCT6eguA135YZIjhAWc3fGDu-E7__S' in items:
+                        items.remove('1JbgCT6eguA135YZIjhAWc3fGDu-E7__S')
+                        pathgoogle.remove('https://drive.google.com/uc?id=1JbgCT6eguA135YZIjhAWc3fGDu-E7__S')
                     product.t_image = items
                 product.save()
                 return render(request, "Thamahakinview/detail.html",{

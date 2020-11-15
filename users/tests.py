@@ -4,6 +4,7 @@ from django.test import TestCase, Client
 from .models import Thammart, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
+import os
 
 # Create your tests here.
 class TestView(TestCase):
@@ -177,29 +178,6 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/index.html')
         # print(response.context["products"])
         self.assertEqual(len(response.context["products"]),2)
-
-    # def test_add(self):
-    #     self.client.force_login(self.user1)
-    #     response = self.client.post(
-    #         "/add/", data={"product": "add",
-    #             "price": "100",
-    #             "type": "food",
-    #             "detail": "add",
-    #             "line": "haha",
-    #             "instagram": "haho",
-    #             "facebook": "hihi",
-    #             "tel": "06111111",
-    #         })
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response["Location"], "/add_product/")
-
-        # product = Thammart.objects.get()
-        # self.assertEqual(product.t_name, 'add')
-        # self.assertEqual(product.t_detail, 'add')
-        # self.assertEqual(product.t_cat, 'food')
-        # self.assertEqual(product.t_price, '100')
-        # self.assertEqual(product.t_image, '')
-        # self.assertEqual(product.t_count, 0)
 
     #กรณีที่ล็อคอินแล้วจะไม่สามารถเข้าสู่หน้า register ได้
     def test_register_1(self):
@@ -387,7 +365,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการค้นหาสินค้าโดยใช้ชื่อสินค้าได้
+    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่มีอยู่ในระบบ
     def test_search_3(self):
         """ check in test_search_3!! """
         self.client.force_login(self.user1)
@@ -395,6 +373,15 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/index.html')
         self.assertEqual(len(response.context["products"]),6)
+
+    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่ไม่มีอยู่ในระบบ
+    def test_search_3(self):
+        """ check in test_search_3!! """
+        self.client.force_login(self.user1)
+        response = self.client.post(self.search_url,{'product':'zero',})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/index.html')
+        self.assertEqual(len(response.context["products"]),0)
 
     #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการเพิ่มสินค้าใน favorite ได้
     def test_add_favo_1(self):
@@ -500,6 +487,10 @@ class TestView(TestCase):
         """ check in test_remove_product_3!! """
         self.client.force_login(self.user2)
         product = Thammart.objects.get(t_user=self.user2,t_name="two",t_detail="one",t_cat="food")
+        PATH_IMAGE = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'thammahakin/users/templates/temporaryfile')
+        PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
+        with open(PATH,'rb') as image:
+            response = self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'edit':product.id,'fileToUpload':image})
         response = self.client.post(self.remove_product_url,{'remove':product.id,})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/thammart.html')
@@ -548,6 +539,20 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
+    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้องสามารถเพิ่มสินค้าได้
+    def test_add_product_3(self):
+        """ check in test_add_product_3!! """
+        self.client.force_login(self.user1)
+        PATH_IMAGE = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'thammahakin/users/templates/temporaryfile')
+        PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
+        with open(PATH,'rb') as image:
+            response = self.client.post(self.add_product_url,{'product':'test','price':120,'type':'food','detail':'test','tel':'0811001000','line':'test','instagram':'test','facebook':'test','fileToUpload':image})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/index.html')
+        self.assertEqual(len(response.context["products"]), 13)
+        product = Thammart.objects.get(t_name='test')
+        self.client.post(self.remove_product_url,{'remove':product.id,})
+
     #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการแก้ไขสินค้าได้
     def test_edit_product_1(self):
         """ check in test_edit_product_1!! """
@@ -562,5 +567,22 @@ class TestView(TestCase):
         response = self.client.post(self.edit_product_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
+
+    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง สามารถแก้ไขรูปภาพของสินค้าได้
+    def test_edit_product_3(self):
+        """ check in test_edit_product_3!! """
+        self.client.force_login(self.user1)
+        product = Thammart.objects.get(t_user=self.user1,t_name="one",t_detail="two",)
+        PATH_IMAGE = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'thammahakin/users/templates/temporaryfile')
+        PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
+        with open(PATH,'rb') as image:
+            response = self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'fileToUpload':image})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'Thamahakinview/detail.html')
+        product_check = Thammart.objects.get(id=product.id)
+        self.assertEqual(product,product_check)
+        self.assertEqual(response.context["messages"],"Edit SuccessFul.")
+        self.client.post(self.remove_product_url,{'remove':product.id,})
+
 
 

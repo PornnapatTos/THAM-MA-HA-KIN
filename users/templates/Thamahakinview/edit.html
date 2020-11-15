@@ -1,9 +1,6 @@
 {% extends "users/layout.html" %}
 {%block title %} Home {% endblock%}
 {% block body %}
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div>
         <a href="{% url 'index' %}">Home</a>
@@ -69,7 +66,11 @@
                 {{channel}} : <input type="text" value="{{data}}" name="{{channel}}" class="pwd-regis" style="margin-left: 41px;"></br>
             {% endfor %}
             Select image to upload :
-            <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
+            <input type="file" name="fileToUpload" id="fileToUpload" multiple>
+            {% if message %}
+                <div>{{ message }}</div>
+            {% endif %}
+            </br>
             <ul>
                 เลือกรูปเพื่อลบ
                 {% for image, key in images %}
