@@ -40,7 +40,7 @@
                   </li>
             </ul>
             <div class="edit-product">
-                {% for image in images %}
+                {% for image, key in images %}
                     <div><img src="{{image}}"></div>
                 {% endfor %}
                 <form action="{% url 'edit_product' %}" method="POST" enctype="multipart/form-data" >

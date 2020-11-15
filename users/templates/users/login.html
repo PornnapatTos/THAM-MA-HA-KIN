@@ -8,16 +8,16 @@
         <div class="login-container">
             <form action="{% url 'login' %}" method="POST" class="input-form" >
                 {% csrf_token %}
-                <div class="head-sign">
+                <div class="head-login">
                     <img src="static/image/Icon.png">
-                    <h3>THAM-MA-HA-KIN</h3>
-                    <h5>Please login to continue.</h5>
+                    <h4>THAM-MA-HA-KIN</h4>
+                    <p>Please login to continue.</p>
                 </div>
                 <input type="text" placeholder="username" name="username" class="user">
                 <input type="password" placeholder="password" name="password" class="pwd">
                 <input type="submit" value="Login" class="submit">
                 <div class="footer-login">
-                    <h6>Don't have an account?</h6>
+                    <p>Don't have an account?</p>
                     <button><a href="{% url 'register' %}">Register</a></button>
                 </div>
 

@@ -173,9 +173,7 @@ def remove_favorite(request):
         if not request.user.is_staff :
             if request.method == "POST" :
                 profile = Profile.objects.get(p_user = request.user.username)
-                print(profile)
                 product = Thammart.objects.get(id=request.POST["remove_favo"])
-                print(product)
                 if product in profile.p_fav.all() :
                     profile.p_fav.remove(product)
                     message = "Successful Remove Favorite Product."
@@ -305,7 +303,7 @@ def remove_product(request):
                     imagea = imagea.replace("]","")
                     imagea = imagea.replace("'","")
                     imagea = imagea.replace(",","")
-                    if imagea == '1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS':
+                    if imagea == '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8':
                         pass
                     else:
                         service.files().delete(fileId=imagea).execute()
@@ -426,7 +424,10 @@ def edit_product(request):
                     print('imageToDelete')
                     imageToDelete = request.POST.getlist('imageToDelete')
                     for image in imageToDelete:
-                        service.files().delete(fileId=image).execute()
+                        if image == '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8':
+                            pass
+                        else:
+                            service.files().delete(fileId=image).execute()
                         if image in preitems:
                             preitems.remove(image)
                     for image in preitems:
@@ -452,11 +453,11 @@ def edit_product(request):
                         items.append(itemUp)
                         pathgoogle.append(f'https://drive.google.com/uc?id={itemUp}')
                 if items == []:
-                    product.t_image = '1JbgCT6eguA135YZIjhAWc3fGDu-E7__S'
+                    product.t_image = '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8'
                 else:
-                    if '1JbgCT6eguA135YZIjhAWc3fGDu-E7__S' in items:
+                    if '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8' in items:
                         items.remove('1JbgCT6eguA135YZIjhAWc3fGDu-E7__S')
-                        pathgoogle.remove('https://drive.google.com/uc?id=1JbgCT6eguA135YZIjhAWc3fGDu-E7__S')
+                        pathgoogle.remove('https://drive.google.com/uc?id=1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8')
                     product.t_image = items
                 product.save()
                 return render(request, "Thamahakinview/detail.html",{

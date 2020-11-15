@@ -43,23 +43,25 @@
                                     <img src="{{image}}">
                                 </div>
                             {% endfor %}
-                            <a href="{% url 'detail' product.id %}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{product.t_name}}</h5>
-                                    <h6 class="card-text">฿ {{product.t_price}}</h6>
-                                    <div class="manage-product">
-                                        <form action="{% url 'remove_favorite' %}" method="POST" class="remove">
-                                            {% csrf_token %}
-                                            <button name="remove_favo" type="submit" value="{{ product.id }}">
-                                                remove
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                                </svg>
-                                            </button>
-                                        </form>
+                            <div class="link-detail">
+                                <a href="{% url 'detail' product.id %}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{product.t_name}}</h5>
+                                        <h6 class="card-text">฿ {{product.t_price}}</h6>
+                                        <div class="manage-product">
+                                            <form action="{% url 'remove_favorite' %}" method="POST" class="remove">
+                                                {% csrf_token %}
+                                                <button name="remove_favo" type="submit" value="{{ product.id }}">
+                                                    remove
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     {% endfor %}
                 {% endif %}

@@ -1,5 +1,6 @@
 .full-screen{
     width: 100vw;
+    min-height: 1000px;
     background-image: url("/static/image/website-bg.png");
     font-family: 'Kanit', sans-serif;
     position: absolute;

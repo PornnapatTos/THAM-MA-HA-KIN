@@ -20,36 +20,36 @@ class TestView(TestCase):
         self.user3 = User.objects.create_superuser(username='admin', password='1234', email='admin@reg.com')
 
         # create product
-        self.p1 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="one",t_cat="food",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p2 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="two",t_cat="closet",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p3 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="three",t_cat="accessary",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p4 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="four",t_cat="beauty",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p5 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="five",t_cat="electronic",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p6 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="six",t_cat="others",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p7 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="one",t_cat="food",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p8 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="two",t_cat="closet",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p9 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="three",t_cat="accessary",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p10 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="four",t_cat="beauty",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p11 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="five",t_cat="electronic",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
-        self.p12 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="six",t_cat="others",t_price="100",t_image="['1vqC3XJu47ia2WfbxYjH-ob7eNzq8mmsS']",t_count=0,t_channel="['1','1','1','1']")
+        self.p1 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="one",t_cat="food",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p2 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="two",t_cat="closet",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p3 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="three",t_cat="accessary",t_price="100",t_image="[]",t_count=0,t_channel="['1','1','1','1']")
+        self.p4 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="four",t_cat="beauty",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p5 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="five",t_cat="electronic",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p6 = Thammart.objects.create(t_user=self.user1,t_name="one",t_detail="six",t_cat="others",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p7 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="one",t_cat="food",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p8 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="two",t_cat="closet",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p9 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="three",t_cat="accessary",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p10 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="four",t_cat="beauty",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p11 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="five",t_cat="electronic",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
+        self.p12 = Thammart.objects.create(t_user=self.user2,t_name="two",t_detail="six",t_cat="others",t_price="100",t_image="",t_count=0,t_channel="['1','1','1','1']")
 
         # path url
-        self.index_url = reverse('index')#
-        self.login_url = reverse('login')#
-        self.logout_url = reverse('logout')#
-        # self.detail_url = (f"/detail/1") #
-        self.about_url = reverse('about_view')#
-        self.register_url = reverse('register')#
-        self.add_user_url = reverse('add_user')#
-        self.add_view_url = reverse('add_view')#
-        self.thammart_url = reverse('thammart')#
+        self.index_url = reverse('index')
+        self.login_url = reverse('login')
+        self.logout_url = reverse('logout')
+        # self.detail_url = (f"/detail/1")
+        self.about_url = reverse('about_view')
+        self.register_url = reverse('register')
+        self.add_user_url = reverse('add_user')
+        self.add_view_url = reverse('add_view')
+        self.thammart_url = reverse('thammart')
         self.add_product_url = reverse('add_product')
-        self.remove_product_url = reverse('remove_product')#
-        self.favorite_url = reverse('favo')#
-        self.add_favo_url = reverse('favorite')#
-        self.remove_favo_url = reverse('remove_favorite')#
-        self.search_url = reverse('search')#
-        self.edit_url = reverse('edit')#
+        self.remove_product_url = reverse('remove_product')
+        self.favorite_url = reverse('favo')
+        self.add_favo_url = reverse('favorite')
+        self.remove_favo_url = reverse('remove_favorite')
+        self.search_url = reverse('search')
+        self.edit_url = reverse('edit')
         self.edit_product_url = reverse('edit_product')
 
 
@@ -95,7 +95,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเป็น admin ไม่สามารถเข้าถึงหน้า index ได้
+    # กรณีที่ล็อคอินเป็น admin ไม่สามารถเข้าถึงหน้า index ได้
     def test_index_0(self):
         """ check in test_index_0!! """
         self.client.force_login(self.user3)
@@ -179,7 +179,7 @@ class TestView(TestCase):
         # print(response.context["products"])
         self.assertEqual(len(response.context["products"]),2)
 
-    #กรณีที่ล็อคอินแล้วจะไม่สามารถเข้าสู่หน้า register ได้
+    # กรณีที่ล็อคอินแล้วจะไม่สามารถเข้าสู่หน้า register ได้
     def test_register_1(self):
         """ check in test_register_1!! """
         self.client.force_login(self.user1)
@@ -219,7 +219,7 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/register.html')
         self.assertEqual(response.context["message"],"fail to register!")
 
-    #กรณีที่ register สมบูรณ์
+    # กรณีที่ register สมบูรณ์
     def test_register_6(self):
         """ check in test_register_6!! """
         response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123456','cpassword':'123456'})
@@ -227,14 +227,14 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/login.html')
         self.assertEqual(response.context["message"],"register success!")
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า about ได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า about ได้
     def test_about_1(self):
         """ check in test_about_1!! """
         response = self.client.post(self.about_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า about ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า about ได้
     def test_about_2(self):
         """ check in test_about_2!! """
         self.client.force_login(self.user3)
@@ -242,7 +242,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า about ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า about ได้
     def test_about_3(self):
         """ check in test_about_3!! """
         self.client.force_login(self.user1)
@@ -258,7 +258,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    # #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin จะไม่สามารถเข้าถึงหน้ารายละเอียดสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin จะไม่สามารถเข้าถึงหน้ารายละเอียดสินค้าได้
     def test_detail_2(self) :
         """ check in test_detail_2!! """
         self.client.force_login(self.user3)
@@ -267,7 +267,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    # #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ สามารถเข้าถึงหน้ารายละเอียดสินค้านั้น ๆ ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ สามารถเข้าถึงหน้ารายละเอียดสินค้านั้น ๆ ได้
     def test_detail_3(self) :
         """ check in test_detail_3!! """
         self.client.force_login(self.user1)
@@ -276,17 +276,17 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/detail.html')
         self.assertEqual(response.context["product"],product)
-        self.assertEqual(len(response.context["images"]),1)
+        self.assertEqual(len(response.context["images"]),0)
         self.assertEqual(len(response.context["channels"]),4)
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
     def test_add_view_1(self):
         """ check in test_add_view_1!! """
         response = self.client.post(self.add_view_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
     def test_add_view_2(self):
         """ check in test_add_view_2!! """
         self.client.force_login(self.user3)
@@ -294,7 +294,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้าเพิ่มสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้าเพิ่มสินค้าได้
     def test_add_view_3(self):
         """ check in test_add_view_3!! """
         self.client.force_login(self.user1)
@@ -302,14 +302,14 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/add.html')
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า thammart ได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า thammart ได้
     def test_thammart_1(self):
         """ check in test_thammart_1!! """
         response = self.client.post(self.thammart_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า thammart ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า thammart ได้
     def test_thammart_2(self):
         """ check in test_thammart_2!! """
         self.client.force_login(self.user3)
@@ -317,7 +317,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า thammart ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า thammart ได้
     def test_thammart_3(self):
         """ check in test_thammart_3!! """
         self.client.force_login(self.user1)
@@ -326,14 +326,14 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'Thamahakinview/thammart.html')
         self.assertEqual(len(response.context["mymart"]),6)
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า favorite ได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้า favorite ได้
     def test_favorite_1(self):
         """ check in test_favorite_1!! """
         response = self.client.post(self.favorite_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า favorite ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้า favorite ได้
     def test_favorite_2(self):
         """ check in test_favorite_2!! """
         self.client.force_login(self.user3)
@@ -341,7 +341,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า favorite ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้า favorite ได้
     def test_favorite_3(self):
         """ check in test_favorite_3!! """
         self.client.force_login(self.user1)
@@ -350,14 +350,14 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'Thamahakinview/favo.html')
         self.assertEqual(len(response.context["favos"]),0)
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการค้นหาสินค้าได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการค้นหาสินค้าได้
     def test_search_1(self):
         """ check in test_search_1!! """
         response = self.client.post(self.search_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการค้นหาสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการค้นหาสินค้าได้
     def test_search_2(self):
         """ check in test_search_2!! """
         self.client.force_login(self.user3)
@@ -365,7 +365,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่มีอยู่ในระบบ
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่มีอยู่ในระบบ
     def test_search_3(self):
         """ check in test_search_3!! """
         self.client.force_login(self.user1)
@@ -374,7 +374,7 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/index.html')
         self.assertEqual(len(response.context["products"]),6)
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่ไม่มีอยู่ในระบบ
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่ไม่มีอยู่ในระบบ
     def test_search_3(self):
         """ check in test_search_3!! """
         self.client.force_login(self.user1)
@@ -383,14 +383,14 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/index.html')
         self.assertEqual(len(response.context["products"]),0)
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการเพิ่มสินค้าใน favorite ได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการเพิ่มสินค้าใน favorite ได้
     def test_add_favo_1(self):
         """ check in test_add_favo_1!! """
         response = self.client.post(self.add_favo_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการเพิ่มสินค้าใน favorite ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการเพิ่มสินค้าใน favorite ได้
     def test_add_favo_2(self):
         """ check in test_add_favo_2!! """
         self.client.force_login(self.user3)
@@ -398,7 +398,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการค้นหาเพิ่มสินค้าใน favorite ได้ซึ่งสินค้าชนิดนั้นจะต้องไม่อยู่ใน favorite ของผู้ใช้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการค้นหาเพิ่มสินค้าใน favorite ได้ซึ่งสินค้าชนิดนั้นจะต้องไม่อยู่ใน favorite ของผู้ใช้
     def test_add_favo_3(self):
         """ check in test_add_favo_3!! """
         self.client.force_login(self.user1)
@@ -409,7 +409,7 @@ class TestView(TestCase):
         self.assertEqual(len(response.context["products"]),12)
         self.assertEqual(response.context["messages"],"Successful Add Favorite Product.")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการค้นหาเพิ่มสินค้าใน favorite ได้ และสินค้าอยู่ใน favorite ของผู้ใช้แล้วจะไม่สามารถเพิ่มสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการค้นหาเพิ่มสินค้าใน favorite ได้ และสินค้าอยู่ใน favorite ของผู้ใช้แล้วจะไม่สามารถเพิ่มสินค้าได้
     def test_add_favo_4(self):
         """ check in test_add_favo_4 """
         self.client.force_login(self.user1)
@@ -425,14 +425,14 @@ class TestView(TestCase):
         self.assertEqual(len(response2.context["products"]),12)
         self.assertEqual(response2.context["messages"],"Product has already in Your Favorite.")
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการลบสินค้าใน favorite ได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการลบสินค้าใน favorite ได้
     def test_remove_favo_1(self):
         """ check in test_remove_favo_1!! """
         response = self.client.post(self.remove_favo_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลบสินค้าใน favorite ได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลบสินค้าใน favorite ได้
     def test_remove_favo_2(self):
         """ check in test_remove_favo_2!! """
         self.client.force_login(self.user3)
@@ -440,7 +440,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าใน favorite ได้ ซึ่งสินค้านั้นจะต้องอยู่ใน favorite ของผู้ใช้ก่อนแล้ว
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าใน favorite ได้ ซึ่งสินค้านั้นจะต้องอยู่ใน favorite ของผู้ใช้ก่อนแล้ว
     def test_remove_favo_3(self):
         """ check in test_remove_favo_3!! """
         self.client.force_login(self.user1)
@@ -453,10 +453,10 @@ class TestView(TestCase):
         response2 = self.client.post(self.remove_favo_url,{'remove_favo':product.id,})
         self.assertEqual(response2.status_code, 200)
         self.assertTemplateUsed(response2 , 'Thamahakinview/favo.html')
-        self.assertEqual(len(response2.context["products"]),0)
+        self.assertEqual(len(response2.context["favos"]),0)
         self.assertEqual(response2.context["messages"],"Successful Remove Favorite Product.")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าใน favorite ได้ แต่สินค้านั้นไม่อยู่ใน favorite ของผู้ใช้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าใน favorite ได้ แต่สินค้านั้นไม่อยู่ใน favorite ของผู้ใช้
     def test_remove_favo_4(self):
         """ check in test_remove_favo_4!! """
         self.client.force_login(self.user1)
@@ -464,17 +464,17 @@ class TestView(TestCase):
         response = self.client.post(self.remove_favo_url,{'remove_favo':product.id,})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/favo.html')
-        self.assertEqual(len(response.context["products"]),0)
+        self.assertEqual(len(response.context["favos"]),0)
         self.assertEqual(response.context["messages"],"Product has not already in Your Favorite.")
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการลบสินค้าได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการลบสินค้าได้
     def test_remove_product_1(self):
         """ check in test_remove_product_1!! """
         response = self.client.post(self.remove_product_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลบสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลบสินค้าได้
     def test_remove_product_2(self):
         """ check in test_remove_product_2!! """
         self.client.force_login(self.user3)
@@ -482,7 +482,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าได้ ซึ่งต้องเป็นสินค้าที่ผู้ใช้โพสต์ขายเอง
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงการลบสินค้าได้ ซึ่งต้องเป็นสินค้าที่ผู้ใช้โพสต์ขายเอง
     def test_remove_product_3(self):
         """ check in test_remove_product_3!! """
         self.client.force_login(self.user2)
@@ -490,21 +490,22 @@ class TestView(TestCase):
         PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
         PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
         with open(PATH,'rb') as image:
-            response = self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'edit':product.id,'fileToUpload':image})
+            self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'fileToUpload':image})
         response = self.client.post(self.remove_product_url,{'remove':product.id,})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/thammart.html')
         self.assertEqual(len(response.context["mymart"]),5)
         self.assertEqual(response.context["messages"],"Successful Remove Product.")
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าแก้ไขสินค้าได้
+
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าแก้ไขสินค้าได้
     def test_edit_1(self):
         """ check in test_edit_1!! """
         response = self.client.post(self.edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าแก้ไขสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าแก้ไขสินค้าได้
     def test_edit_2(self):
         """ check in test_edit_2!! """
         self.client.force_login(self.user3)
@@ -512,7 +513,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้าแก้ไขสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้สามารถเข้าถึงหน้าแก้ไขสินค้าได้
     def test_edit_3(self):
         """ check in test_edit_3!! """
         self.client.force_login(self.user1)
@@ -521,17 +522,17 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'Thamahakinview/edit.html')
         self.assertEqual(response.context["product"],product)
-        self.assertEqual(len(response.context["images"]),1)
+        self.assertEqual(len(response.context["images"]),0)
         self.assertEqual(len(response.context["channels"]),4)
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
     def test_add_product_1(self):
         """ check in test_add_product_1!! """
         response = self.client.post(self.add_product_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าเพิ่มสินค้าได้
     def test_add_product_2(self):
         """ check in test_add_product_2!! """
         self.client.force_login(self.user3)
@@ -539,7 +540,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้องสามารถเพิ่มสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้องสามารถเพิ่มสินค้าได้
     def test_add_product_3(self):
         """ check in test_add_product_3!! """
         self.client.force_login(self.user1)
@@ -553,14 +554,14 @@ class TestView(TestCase):
         product = Thammart.objects.get(t_name='test')
         self.client.post(self.remove_product_url,{'remove':product.id,})
 
-    #กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการแก้ไขสินค้าได้
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงการแก้ไขสินค้าได้
     def test_edit_product_1(self):
         """ check in test_edit_product_1!! """
         response = self.client.post(self.edit_product_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/login")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการแก้ไขสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการแก้ไขสินค้าได้
     def test_edit_product_2(self):
         """ check in test_edit_product_2!! """
         self.client.force_login(self.user3)
@@ -568,7 +569,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.redirect(response), "/logout")
 
-    #กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง สามารถแก้ไขรูปภาพของสินค้าได้
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง สามารถแก้ไขรูปภาพของสินค้าได้
     def test_edit_product_3(self):
         """ check in test_edit_product_3!! """
         self.client.force_login(self.user1)
