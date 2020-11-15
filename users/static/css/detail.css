@@ -1,0 +1,27 @@
+.detail-container{
+    width: 100vw;
+    background-image: url("/static/image/website-bg.png");
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    background-repeat: repeat;
+}
+.detail-product-container{
+    margin-top: 90px;
+    margin-left: 30px;
+}
+.detail-product{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-left: 112px;
+}
+.detail-product img{
+    height: 320px;
+    width: 320px;
+    margin: 10px;
+}
+.btn-remove a{
+    background-color: #df214c;
+    border: 1px solid #df214c;
+    border-radius: 38px;
+}

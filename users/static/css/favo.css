@@ -1,0 +1,12 @@
+.favorite-container{
+    width: 100vw;
+    background-image: url("/static/image/website-bg.png");
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    background-repeat: repeat;
+}
+
+.fav-product{
+    margin-top: 90px;
+    margin-left: 30px;
+}

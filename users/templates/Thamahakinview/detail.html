@@ -1,91 +1,68 @@
 {% extends "users/layout.html" %}
-{%block title %} Edit {% endblock%}
+{%block title %} Home {% endblock%}
 {% block body %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div>
-        <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'about_view' %}">About</a>
-        <a href="{% url 'favo' %}">favo</a>
-        <a href="{% url 'add_view' %}">add</a>
-        <a href="{% url 'thammart' %}">thammart</a>
-        <a href="{% url 'logout' %}">Logout</a></br>
-        {% for image, key in images %}
-            <div><img src="{{image}}"></div>
-        {% endfor %}
-        <form action="{% url 'edit_product' %}" method="POST" enctype="multipart/form-data" >
-            {% csrf_token %}
-            Name : <input type="text" name="name" value="{{product.t_name}}"></br>
-            Detail : <input type="text" name="detail" value="{{product.t_detail}}"></br>
-            Category : </br><select name="type" id="type" class="category" style="margin-left: 80px;">
-                {% if product.t_cat == "food" %}
-                    <option value="food" selected >Food</option>
-                    <option value="closet">Closet</option>
-                    <option value="accessary">Accessary</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="electronic">Electronic</option>
-                    <option value="others">Others</option>
-                {% elif product.t_cat == "closet" %}
-                    <option value="food">Food</option>
-                    <option value="closet" selected>Closet</option>
-                    <option value="accessary">Accessary</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="electronic">Electronic</option>
-                    <option value="others">Others</option>
-                {% elif product.t_cat == "accessary" %}
-                    <option value="food">Food</option>
-                    <option value="closet">Closet</option>
-                    <option value="accessary" selected>Accessary</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="electronic">Electronic</option>
-                    <option value="others">Others</option>
-                {% elif product.t_cat == "beauty" %}
-                    <option value="food">Food</option>
-                    <option value="closet">Closet</option>
-                    <option value="accessary">Accessary</option>
-                    <option value="beauty" selected>Beauty</option>
-                    <option value="electronic">Electronic</option>
-                    <option value="others">Others</option>
-                {% elif product.t_cat == "electronic" %}
-                    <option value="food">Food</option>
-                    <option value="closet">Closet</option>
-                    <option value="accessary">Accessary</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="electronic" selected>Electronic</option>
-                    <option value="others">Others</option>
-                {% elif product.t_cat == "others" %}
-                    <option value="food">Food</option>
-                    <option value="closet">Closet</option>
-                    <option value="accessary">Accessary</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="electronic">Electronic</option>
-                    <option value="others" selected>Others</option>
-                {% endif %}
-                    </select></br>
-            Price : <input type="text" name="price" value="{{product.t_price}}"></br>
-            {% for channel,data in channels %}
-                {{channel}} : <input type="text" value="{{data}}" name="{{channel}}" class="pwd-regis" style="margin-left: 41px;"></br>
-            {% endfor %}
-            Select image to upload :
-            <input type="file" name="fileToUpload" id="fileToUpload" multiple>
-            {% if message %}
-                <div>{{ message }}</div>
-            {% endif %}
-            </br>
-            <ul>
-                เลือกรูปเพื่อลบ
-                {% for image, key in images %}
-                    {% if key == '1Vjl9_JsTuQGgc82Hw2m3XmfSkGGBz_a-' %}
-                        <div><img src="{{image}}"></div>
-                        รูป default ไม่สามารถลบได้
-                    {% else %}
-                        <li>
-                            <input type="checkbox" name="imageToDelete" id="imageToDelete" value={{key}} multiple/>
-                            <label for="imageToDelete"><img src="{{image}}" /></label>
-                        </li>
-                    {% endif %}
-                {% endfor %}
+    <div class="detail-container">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="top-nav">
+            <a href="{% url 'index' %}">
+                <img src="static/image/Icon.png">
+                <h1>THAM-MA-HA-KIN</h1>
+            </a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about_view' %}">About</a>
+            <a href="{% url 'thammart' %}">THAMMART</a>
+            <a href="{% url 'favo' %}" class="fav">
+            <button type="button" class="fav-btn">
+                Fav
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                </svg>
+            </button>
+            </a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <div class="edit-product-container">
+            <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="true">
+                        Detail Product
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                        </a>
+                  </li>
             </ul>
-            <button name="edit" type="submit" value="{{ product.id }}">edit</button>
-        </form>
+            <div class="detail-product">
+                    {% for image in images %}
+                        <div><img src="{{image}}"></div>
+                    {% endfor %}
+                    <!--<div>Product Name : {{product.t_name}}</div>-->
+                    <!--<div>Product Detail : {{product.t_detail}}</div>-->
+                    <!--<div>Product Category : {{product.t_cat}}</div>-->
+                    <!--<div>Product Price : {{product.t_price}}</div>-->
+                    <!--<form action="{% url 'remove_product' %}" method="POST">-->
+                    <!--    {% csrf_token %}-->
+                    <!--    <button name="remove" type="submit" value="{{ product.id }}">remove</button>-->
+                    <!--</form>-->
+                    <div class="jumbotron" style="background-color: #bef1dc;">
+                      <h1 class="display-4">{{product.t_name}}</h1>
+                      <p class="lead">{{product.t_detail}}</p>
+                      <p>Product Price : {{product.t_price}}</p>
+                      <hr class="my-4">
+                      <p>Category : {{product.t_cat}}</p>
+                      {% for channel,data in channels %}
+                            <div>{{channel}} : {{data}}</div>
+                      {% endfor %}
+                    </div>
+            </div>
+
+        </div>
+    {% endblock %}
     </div>
-{% endblock %}

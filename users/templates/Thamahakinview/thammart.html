@@ -51,7 +51,6 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.t_name}}</h5>
                                         <h6 class="card-text">฿ {{product.t_price}}</h6>
-
                                         <div class="manage-product">
                                             <a href="{% url 'detail' product.id %}">detail</a>
                                             <form action="{% url 'edit' %}" method="POST" class="edit">
