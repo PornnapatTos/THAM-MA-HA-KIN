@@ -9,7 +9,7 @@
     align-items: center;
     background-attachment: fixed;
     background-position: center;
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
 }
 
 .login-container{
@@ -31,6 +31,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-position: center;
 }
 
 .register-container{
@@ -61,39 +62,47 @@
     flex-flow: column;
 }
 
-.head-sign img{
+.head-login img{
     position: relative;
     height: 43px;
     width: 43px;
-    margin: 4px 0px;
+    margin: 9px 0px 0px;
 }
 
 .head-sign img{
     height: 35px;
     width: 35px;
     align-self: center;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0px 0px;
 }
 
-h5{
+.head-sign p{
     text-align: center;
-    margin: 10px 0px;
     color: #ececec;
     font-weight: lighter;
+    font-size: 12px;
 }
 
-h6{
+.footer-login p{
     text-align: center;
     margin: 5px 0px;
     color: #9B9B9B;
     font-weight: lighter;
+    font-size: 13px;
 }
 
-.head-login h3 {
+.head-login h4 {
     color: #ffffff;
     margin: 10px;
     font-weight: lighter;
 }
+
+.head-login p {
+    color: #ececec;
+    font-weight: lighter;
+    font-size: 15px;
+}
+
 
 .head-sign h3 {
     text-align: center;
@@ -103,8 +112,8 @@ h6{
 }
 
 .user, .pwd{
-    width: 165px;
-    height: 22px;
+    width: 187px;
+    height: 30px;
     font-size: 14px;
     align-self: center;
     padding: 5px 10px;
@@ -117,7 +126,7 @@ h6{
 
 .user-regis, .pwd-regis{
     width: 268px;
-    height: 20px;
+    height: 30px;
     font-size: 14px;
     align-self: center;
     padding: 5px 20px;
@@ -135,8 +144,8 @@ h6{
 }
 
 .lname, .sname{
-    width: 111px;
-    height: 20px;
+    width: 132px;
+    height: 30px;
     font-size: 14px;
     align-self: center;
     padding: 5px 20px;
@@ -167,7 +176,7 @@ h6{
 }
 
 .signup{
-    width: 310px;
+    width: 268px;
     height: 35px;
     font-size: 18px;
     align-self: center;
@@ -199,11 +208,11 @@ h6{
 .footer-login button{
     width: 55px;
     height: 24px;
-    font-size: 12px;
+    font-size: 11px;
     align-self: center;
     background-color: #00cca3;
     border: #df214c;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .footer-login button:hover{
