@@ -15,13 +15,12 @@
         {% for image in images %}
             <div><img src="{{image}}"></div>
         {% endfor %}
-        <div>Product Name : {{product.t_name}}</div>
-        <div>Product Detail : {{product.t_detail}}</div>
-        <div>Product Category : {{product.t_cat}}</div>
-        <div>Product Price : {{product.t_price}}</div>
-        <form action="{% url 'remove_product' %}" method="POST">
-            {% csrf_token %}
-            <button name="remove" type="submit" value="{{ product.id }}">remove</button>
-        </form>
+        <div>Product Name : {{product.t_name}} </div>
+        <div>Product Detail : {{product.t_detail}} </div>
+        <div>Product Category : {{product.t_cat}} </div>
+        <div>Product Price : {{product.t_price}} </div>
+        {% for channel,data in channels %}
+            <div>{{channel}} : {{data}}</div>
+        {% endfor %}
     </div>
 {% endblock %}

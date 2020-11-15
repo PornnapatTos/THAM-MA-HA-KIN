@@ -117,7 +117,7 @@
                 <h3>No product</h3>
                 {% else %}
                     {% for product,images in products %}
-                    <!--<a href="{% url 'detail' %}" value="{{ product.t_detail }}">-->
+                    <a href="{% url 'detail' product.id %}">
                         <div class="box-product">
                             <div class="frame">
                             {% for image in images %}
@@ -133,7 +133,7 @@
                                 <button name="fav" type="submit" value="{{ product.id }}">fav</button>
                             </form>
                         </div>
-                    <!--</a>-->
+                    </a>
                     {% endfor %}
                 {% endif %}
             </div>

@@ -20,23 +20,27 @@ class Thammart(models.Model):
     t_price = models.CharField(max_length=10)
     t_image = models.CharField(max_length=1000)
     t_date = models.DateTimeField(default=timezone.now)
+    t_channel = models.CharField(max_length=1000,default='0000000000000000')
 
     def __str__(self) :
-        return f"{self.t_user} : {self.t_name} {self.t_price} {self.t_detail} {self.t_cat} {self.t_count} {self.t_date}"
+        return f"{self.t_user} : {self.t_name} {self.t_price} {self.t_detail} {self.t_cat} {self.t_count} {self.t_date} {self.t_channel}"
 
 class Profile(models.Model):
     p_user = models.CharField(max_length=10)
     p_name = models.CharField(max_length=50)
     p_sname = models.CharField(max_length=50)
     p_mail = models.CharField(max_length=40 ,default='0000000')
-    p_phone = models.CharField(max_length=40 ,default='0000000')
-    p_facebook = models.CharField(max_length=40 ,default='0000000')
-    p_instragram = models.CharField(max_length=40 ,default='0000000')
-    p_line = models.CharField(max_length=40 ,default='0000000')
+    # p_phone = models.CharField(max_length=40 ,default='0000000')
+    # p_facebook = models.CharField(max_length=40 ,default='0000000')
+    # p_instragram = models.CharField(max_length=40 ,default='0000000')
+    # p_line = models.CharField(max_length=40 ,default='0000000')
     p_fav = models.ManyToManyField(Thammart, blank=True , related_name="favorites")
 
+    # def __str__(self) :
+    #     return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_phone} {self.p_mail} {self.p_instragram} {self.p_facebook} {self.p_line}"
+
     def __str__(self) :
-        return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_phone} {self.p_mail} {self.p_instragram} {self.p_facebook} {self.p_line}"
+        return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_mail}"
 
 
 

@@ -24,19 +24,28 @@
                 <h3>No product</h3>
                 {% else %}
                     {% for product,images in mymart %}
-                        {% for image in images %}
-                            <div><img src="{{image}}"></div>
-                        {% endfor %}
                     <div>{{product.t_name}} {{product.t_price}}
-                    <!--<a href="{% url 'detail' %}" value="{{ product.id }}">detail</a>-->
-                        <form action="{% url 'detail' %}" method="POST">
-                            {% csrf_token %}
-                            <button name="detail" type="submit" value="{{ product.id }}">detail</button>
-                        </form>
-                        <form action="{% url 'edit' %}" method="POST">
-                            {% csrf_token %}
-                            <button name="edit" type="submit" value="{{ product.id }}">edit</button>
-                        </form>
+                        <a href="{% url 'detail' product.id %}">
+                            <div class="box-product">
+                                <div class="frame">
+                                {% for image in images %}
+                                    <img src="{{image}}">
+                                {% endfor %}
+                                </div>
+                                <div class="text">
+                                    <h4>{{product.t_name}}</h4>
+                                    <h4>฿ {{product.t_price}}</h4>
+                                </div>
+                            </div>
+                            <form action="{% url 'edit' %}" method="POST">
+                                {% csrf_token %}
+                                <button name="edit" type="submit" value="{{ product.id }}">edit</button>
+                            </form>
+                            <form action="{% url 'remove_product' %}" method="POST">
+                                {% csrf_token %}
+                                <button name="remove" type="submit" value="{{ product.id }}">remove</button>
+                            </form>
+                        </a>
                     </div>
                     {% endfor %}
                 {% endif %}

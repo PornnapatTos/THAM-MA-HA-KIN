@@ -12,14 +12,14 @@
         <a href="{% url 'add_view' %}">add</a>
         <a href="{% url 'thammart' %}">thammart</a>
         <a href="{% url 'logout' %}">Logout</a></br>
-        {% for image in images %}
+        {% for image, key in images %}
             <div><img src="{{image}}"></div>
         {% endfor %}
-        <form action="{% url 'edit_product' %}" method="POST">
+        <form action="{% url 'edit_product' %}" method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
-            <input type="text" name="name" value="{{product.t_name}}"></br>
-            <input type="text" name="detail"value="{{product.t_detail}}"></br>
-            Category: </br><select name="type" id="type" class="category" style="margin-left: 80px;">
+            Name : <input type="text" name="name" value="{{product.t_name}}"></br>
+            Detail : <input type="text" name="detail" value="{{product.t_detail}}"></br>
+            Category : </br><select name="type" id="type" class="category" style="margin-left: 80px;">
                 {% if product.t_cat == "food" %}
                     <option value="food" selected >Food</option>
                     <option value="closet">Closet</option>
@@ -64,17 +64,27 @@
                     <option value="others" selected>Others</option>
                 {% endif %}
                     </select></br>
-            <input type="text" name="price" value="{{product.t_price}}"></br>
-            Line:    <input type="text" placeholder="line" name="line" class="pwd-regis" style="margin-left: 41px;"></br>
-            Instagram: <input type="text" placeholder="instagram" name="instagram" class="pwd-regis"></br>
-            Facebook:  <input type="text" placeholder="facebook" name="facebook" class="pwd-regis"></br>
-            Tel:       <input type="text" placeholder="tel" name="tel" class="pwd-regis" style="margin-left: 49px;"></br>
-            <select class="image" multiple="multiple">
-                {% for image in images %}
-                <div><option data-img-src="{{image}}"></option></div>
+            Price : <input type="text" name="price" value="{{product.t_price}}"></br>
+            {% for channel,data in channels %}
+                {{channel}} : <input type="text" value="{{data}}" name="{{channel}}" class="pwd-regis" style="margin-left: 41px;"></br>
+            {% endfor %}
+            Select image to upload :
+            <input type="file" name="fileToUpload" id="fileToUpload" multiple></br>
+            <ul>
+                เลือกรูปเพื่อลบ
+                {% for image, key in images %}
+                    {% if key == '1Vjl9_JsTuQGgc82Hw2m3XmfSkGGBz_a-' %}
+                        <div><img src="{{image}}"></div>
+                        รูป default ไม่สามารถลบได้
+                    {% else %}
+                        <li>
+                            <input type="checkbox" name="imageToDelete" id="imageToDelete" value={{key}} multiple/>
+                            <label for="imageToDelete"><img src="{{image}}" /></label>
+                        </li>
+                    {% endif %}
                 {% endfor %}
-            </select>
-            <input type="submit" value="edit"></br>
+            </ul>
+            <button name="edit" type="submit" value="{{ product.id }}">edit</button>
         </form>
     </div>
 {% endblock %}
