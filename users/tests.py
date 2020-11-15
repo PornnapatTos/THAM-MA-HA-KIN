@@ -487,7 +487,7 @@ class TestView(TestCase):
         """ check in test_remove_product_3!! """
         self.client.force_login(self.user2)
         product = Thammart.objects.get(t_user=self.user2,t_name="two",t_detail="one",t_cat="food")
-        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users/templates/temporaryfile')
+        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
         PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
         with open(PATH,'rb') as image:
             response = self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'edit':product.id,'fileToUpload':image})
@@ -543,7 +543,7 @@ class TestView(TestCase):
     def test_add_product_3(self):
         """ check in test_add_product_3!! """
         self.client.force_login(self.user1)
-        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users/templates/temporaryfile')
+        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
         PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
         with open(PATH,'rb') as image:
             response = self.client.post(self.add_product_url,{'product':'test','price':120,'type':'food','detail':'test','tel':'0811001000','line':'test','instagram':'test','facebook':'test','fileToUpload':image})
@@ -573,7 +573,7 @@ class TestView(TestCase):
         """ check in test_edit_product_3!! """
         self.client.force_login(self.user1)
         product = Thammart.objects.get(t_user=self.user1,t_name="one",t_detail="two",)
-        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users/templates/temporaryfile')
+        PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
         PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
         with open(PATH,'rb') as image:
             response = self.client.post(self.edit_product_url,{'edit':product.id,'name':product.t_name,'detail':product.t_detail,'type':product.t_cat,'price':product.t_price,'fileToUpload':image})

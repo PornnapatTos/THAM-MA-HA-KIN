@@ -25,8 +25,8 @@ floder_id = '18SCTkSPkw6Kiba2wgXkRfbd1mWnhIOTx'
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPE)
 
 # Path for temporaryfile image
-PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users/templates/temporaryfile')
-
+PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
+print(PATH_IMAGE)
 # Create your views here.
 
 def register_view(request):
