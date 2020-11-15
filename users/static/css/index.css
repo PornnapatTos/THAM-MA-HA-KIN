@@ -237,8 +237,12 @@
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
-.card-body{
+.card-body h6{
     color: #495057;
+}
+
+.link-detail a{
+    text-decoration: none;
 }
 
 .frame{
@@ -250,6 +254,9 @@
 
 .card-body{
     background-color: #88ddbb;
+}
+.card:hover{
+    border-color: #ffffff;
 }
 .card-body h5{
     color: #495057;

@@ -58,7 +58,7 @@
     color: #adb5bd;
 }
 
-.detail button:nth-child(2){
+.remove button:nth-child(2){
     border: 1px solid #495057;
     border-radius: 20px;
     background-color: #88ddbb;
@@ -79,7 +79,7 @@
 .btn-edit svg{
     color: #495057;
 }
-.detail button:nth-child(2):hover{
+.remove button:nth-child(2):hover{
     border: 1px solid #fce27c;
     background-color: #fce27c;
 }

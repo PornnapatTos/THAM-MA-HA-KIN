@@ -173,7 +173,9 @@ def remove_favorite(request):
         if not request.user.is_staff :
             if request.method == "POST" :
                 profile = Profile.objects.get(p_user = request.user.username)
+                print(profile)
                 product = Thammart.objects.get(id=request.POST["remove_favo"])
+                print(product)
                 if product in profile.p_fav.all() :
                     profile.p_fav.remove(product)
                     message = "Successful Remove Favorite Product."
@@ -184,7 +186,7 @@ def remove_favorite(request):
                     message = "Product has not already in Your Favorite."
             favorite = Profile.objects.get(p_user = request.user.username)
             return render(request, "Thamahakinview/favo.html", {
-                "products" : list(zip(favorite.p_fav.all(),image(favorite.p_fav.all()))),
+                "favos" : list(zip(favorite.p_fav.all(),image(favorite.p_fav.all()))),
                 "messages" : message,
             })
         else :
