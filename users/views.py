@@ -89,8 +89,11 @@ def index(request):
                 elif 'beauty' in request.POST: products = Thammart.objects.filter(t_cat='beauty')
                 elif 'electronic' in request.POST: products = Thammart.objects.filter(t_cat='electronic')
                 elif 'others' in request.POST: products = Thammart.objects.filter(t_cat='others')
+            p_fav = Profile.objects.get(p_user=request.user.username)
+            p_fav = p_fav.p_fav.all()
             return render(request, "users/index.html", {
                 "products" : list(zip(products,image(products))),
+                "favorite" : p_fav,
             })
         else :
             return HttpResponseRedirect(reverse("logout"))
@@ -147,8 +150,8 @@ def favorite_view(request):
 def add_favorite(request):
     if request.user.is_authenticated :
         if not request.user.is_staff :
+            profile = Profile.objects.get(p_user = request.user.username)
             if request.method == "POST" :
-                profile = Profile.objects.get(p_user = request.user.username)
                 product = Thammart.objects.get(id=request.POST["fav"])
                 if product not in profile.p_fav.all() :
                     profile.p_fav.add(product)
@@ -162,6 +165,7 @@ def add_favorite(request):
             return render(request, "users/index.html", {
                 "products" : list(zip(products,image(products))),
                 "messages" : message,
+                "favorite" : profile.p_fav.all(),
             })
             # return HttpResponse(message)
         else :

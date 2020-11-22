@@ -169,6 +169,12 @@
 .carousel-item{
     background-color: #efeeee
 }
+.white-heart svg{
+    color: #ffffff;
+}
+.pink-heart svg{
+    color: #df214c;
+}
 
 .category-home{
     max-width: 993px;
