@@ -181,17 +181,16 @@ class TestView(TestCase):
         self.assertTemplateUsed(response , 'users/index.html')
         # print(response.context["products"])
         self.assertEqual(len(response.context["products"]),2)
-
-    # กรณีที่ล็อคอินถูกต้องต้องสามารถเข้าถึงหน้า index และ เลือกดูหมวดหมู่ของสินค้า แนะนำ ได้
+        
     def test_index_9(self):
         """ check in test_index_9!! """
         self.client.force_login(self.user1)
-        response = self.client.post(self.index_url,{'intro':'intro',})
+        response = self.client.post(self.index_url,{'others':'intro',})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/index.html')
         # print(response.context["products"])
-        self.assertEqual(len(response.context["products"]),10)
-
+        self.assertEqual(len(response.context["products"]),2)
+    
 
     # กรณีที่ล็อคอินแล้วจะไม่สามารถเข้าสู่หน้า register ได้
     def test_register_1(self):
@@ -704,8 +703,8 @@ class TestView(TestCase):
         self.assertEqual(response.context["user"],self.s2.p_mail)
 
     # กรณีที่ไม่ได้ล็อคอินเข้าสู่ระบบ และกรอกรหัสผ่านถูกต้อง
-    def test_reset_4(self):
-        """ check in test_reset_4!! """
+    def test_forgot_4(self):
+        """ check in test_forgot_4!! """
         response = self.client.post(self.reset_url,{'user' : '6010610002@thammahakin.com','n_password':'01234','nc_password':'01234'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/login.html')

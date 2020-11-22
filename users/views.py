@@ -473,14 +473,14 @@ def forgot(request):
                 profile = Profile.objects.filter(p_mail=mail)
                 # print(profile)
                 if not profile :
-                    print("hello")
+                    # print("hello")
                     return render(request, 'users/forgot_password.html',{
                         "messages" : "Wrong E-mail",
                     })
                 else :
                     profile = Profile.objects.get(p_mail=mail)
                     digit = randint(100000, 999999)
-                    print(digit)
+                    # print(digit)
                     # send_mail(
                     #     'Change Password',
                     #     str(digit),
