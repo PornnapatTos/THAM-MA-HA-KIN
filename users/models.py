@@ -30,14 +30,7 @@ class Profile(models.Model):
     p_name = models.CharField(max_length=50)
     p_sname = models.CharField(max_length=50)
     p_mail = models.CharField(max_length=40 ,default='0000000')
-    # p_phone = models.CharField(max_length=40 ,default='0000000')
-    # p_facebook = models.CharField(max_length=40 ,default='0000000')
-    # p_instragram = models.CharField(max_length=40 ,default='0000000')
-    # p_line = models.CharField(max_length=40 ,default='0000000')
     p_fav = models.ManyToManyField(Thammart, blank=True , related_name="favorites")
-
-    # def __str__(self) :
-    #     return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_phone} {self.p_mail} {self.p_instragram} {self.p_facebook} {self.p_line}"
 
     def __str__(self) :
         return f"{self.p_user} : {self.p_name} {self.p_sname} {self.p_mail}"
