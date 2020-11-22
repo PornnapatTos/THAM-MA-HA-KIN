@@ -67,3 +67,14 @@ body{
     border: 1px solid #DF214C;
     cursor: pointer;
 }
+.alert-forgot{
+    color: #FFFFFF;
+    margin: 10px;
+    background-color: #df214cab;
+    border: 1px solid #df214c;
+    border-radius: 8px;
+    text-align: center;
+    align-self: center;
+    padding: 10px;
+    width: 278px;
+}
