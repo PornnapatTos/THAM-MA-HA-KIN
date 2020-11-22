@@ -25,6 +25,7 @@ class Thammart(models.Model):
     def __str__(self) :
         return f"{self.t_user} : {self.t_name} {self.t_price} {self.t_detail} {self.t_cat} {self.t_count} {self.t_date} {self.t_channel}"
 
+
 class Profile(models.Model):
     p_user = models.CharField(max_length=10)
     p_name = models.CharField(max_length=50)
