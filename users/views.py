@@ -479,18 +479,8 @@ def forgot(request):
                     })
                 else :
                     profile = Profile.objects.get(p_mail=mail)
-                    digit = randint(100000, 999999)
-                    # print(digit)
-                    # send_mail(
-                    #     'Change Password',
-                    #     str(digit),
-                    #     'pornnapat.tos@gmail.com',
-                    #     [profile.p_mail],
-                    #     fail_silently=False,
-                    # )
                     return render(request, "users/reset_password.html",{
                         "user" : profile.p_mail,
-                        "digit" : digit,
                     })
     else :
         if not request.user.is_staff :
@@ -531,26 +521,3 @@ def reset(request):
             return HttpResponseRedirect(reverse("index"))
         else :
             return HttpResponseRedirect(reverse("logout"))
-
-# def verify(request):
-#     if not request.user.is_authenticated :
-#         if request.method == "POST" :
-#             email = request.POST["email"]
-#             verify = request.POST["verify"]
-#             digit = request.POST["digit"]
-#             profile = Profile.objects.get(p_mail=request.POST["email"])
-#             if verify == digit :
-#                 return render(request, "users/reset_password.html",{
-#                     "user" : profile.p_mail,
-#                 })
-#             else :
-#                 return render(request, "users/check_verify.html",{
-#                         "user" : profile.p_mail,
-#                         "digit" : digit,
-#                         "messages" : "Wrong Verify",
-#                     })
-#     else :
-#         if not request.user.is_staff :
-#             return HttpResponseRedirect(reverse("index"))
-#         else:
-#             return HttpResponseRedirect(reverse("logout"))
