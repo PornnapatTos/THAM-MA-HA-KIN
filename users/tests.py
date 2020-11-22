@@ -11,8 +11,8 @@ class TestView(TestCase):
     def setUp(self):
 
         # create profile
-        self.s1 = Profile.objects.create(p_user="6010610001",p_name="student",p_sname="one")
-        self.s2 = Profile.objects.create(p_user="6010610002",p_name="student",p_sname="two")
+        self.s1 = Profile.objects.create(p_user="6010610001",p_name="student",p_sname="one",p_mail="6010610001@thammahakin.com")
+        self.s2 = Profile.objects.create(p_user="6010610002",p_name="student",p_sname="two",p_mail="6010610002@thammahakin.com")
 
         # create user
         self.user1 = User.objects.create_user(username='6010610001', password='123456', email='6010610001@thammahakin.com')
@@ -51,7 +51,10 @@ class TestView(TestCase):
         self.search_url = reverse('search')
         self.edit_url = reverse('edit')
         self.edit_product_url = reverse('edit_product')
-
+        self.reset_view_url = reverse('reset_view')
+        self.reset_url = reverse('reset')
+        self.forgot_view_url = reverse('forgot_view')
+        self.forgot_url = reverse('forgot')
 
         # Client
         self.client = Client()
@@ -190,7 +193,7 @@ class TestView(TestCase):
     # กรณีที่กรอกข้อมูลไม่ครบถ้วน
     def test_register_2(self):
         """ check in test_register_2!! """
-        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'student','password':'','cpassword':''})
+        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'student','password':'','cpassword':'', 'mail':'test@thammahakin.com'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/register.html')
         self.assertEqual(response.context["message"],"Please complete this registration form.")
@@ -198,7 +201,7 @@ class TestView(TestCase):
     # กรณีที่มี user อยู่แล้ว
     def test_register_3(self):
         """ check in test_register_3!! """
-        response = self.client.post(self.add_user_url,{'username':'6010610001','name':'student','sname':'one','password':'123456','cpassword':'123456'})
+        response = self.client.post(self.add_user_url,{'username':'6010610001','name':'student','sname':'one','password':'123456','cpassword':'123456', 'mail':'test@thammahakin.com'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/login.html')
         self.assertEqual(response.context["message"],"you are already in website!")
@@ -206,7 +209,7 @@ class TestView(TestCase):
     # กรณีที่กรอก password ผิดพลาด
     def test_register_4(self):
         """ check in test_register_4!! """
-        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123455','cpassword':'123456'})
+        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123455','cpassword':'123456', 'mail':'test@thammahakin.com'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/register.html')
         self.assertEqual(response.context["message"],"fail to register!")
@@ -214,7 +217,7 @@ class TestView(TestCase):
     # กรณีที่กรอก username เป็นอักขระ
     def test_register_5(self):
         """ check in test_register_5!! """
-        response = self.client.post(self.add_user_url,{'username':'student','name':'student','sname':'three','password':'123455','cpassword':'123456'})
+        response = self.client.post(self.add_user_url,{'username':'student','name':'student','sname':'three','password':'123455','cpassword':'123456', 'mail':'test@thammahakin.com'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/register.html')
         self.assertEqual(response.context["message"],"fail to register!")
@@ -222,7 +225,7 @@ class TestView(TestCase):
     # กรณีที่ register สมบูรณ์
     def test_register_6(self):
         """ check in test_register_6!! """
-        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123456','cpassword':'123456'})
+        response = self.client.post(self.add_user_url,{'username':'6010610003','name':'student','sname':'three','password':'123456','cpassword':'123456', 'mail':'test@thammahakin.com'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response , 'users/login.html')
         self.assertEqual(response.context["message"],"register success!")
@@ -375,8 +378,8 @@ class TestView(TestCase):
         self.assertEqual(len(response.context["products"]),6)
 
     # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ถูกต้อง และต้องการค้นหาสินค้าที่ไม่มีอยู่ในระบบ
-    def test_search_3(self):
-        """ check in test_search_3!! """
+    def test_search_4(self):
+        """ check in test_search_4!! """
         self.client.force_login(self.user1)
         response = self.client.post(self.search_url,{'product':'zero',})
         self.assertEqual(response.status_code, 200)
@@ -497,7 +500,6 @@ class TestView(TestCase):
         self.assertEqual(len(response.context["mymart"]),5)
         self.assertEqual(response.context["messages"],"Successful Remove Product.")
 
-
     # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าแก้ไขสินค้าได้
     def test_edit_1(self):
         """ check in test_edit_1!! """
@@ -548,9 +550,11 @@ class TestView(TestCase):
         PATH = os.path.join(PATH_IMAGE, 'grape.jpg')
         with open(PATH,'rb') as image:
             response = self.client.post(self.add_product_url,{'product':'test','price':120,'type':'food','detail':'test','tel':'0811001000','line':'test','instagram':'test','facebook':'test','fileToUpload':image})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/index.html')
-        self.assertEqual(len(response.context["products"]), 13)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/thammart")
+        # self.assertEqual(response.status_code, 200)
+        # self.assertTemplateUsed(response, 'users/index.html')
+        # self.assertEqual(len(response.context["products"]), 13)
         product = Thammart.objects.get(t_name='test')
         self.client.post(self.remove_product_url,{'remove':product.id,})
 
@@ -585,5 +589,113 @@ class TestView(TestCase):
         self.assertEqual(response.context["messages"],"Edit SuccessFul.")
         self.client.post(self.remove_product_url,{'remove':product.id,})
 
+    # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะไม่สามารถเข้าถึงหน้าแก้ไขรหัสผ่านได้
+    def test_reset_view_1(self):
+        """ check in test_reset_view_1!! """
+        response = self.client.post(self.reset_view_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/login")
 
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าแก้ไขรหัสผ่านได้
+    def test_reset_view_2(self):
+        """ check in test_reset_view_2!! """
+        self.client.force_login(self.user3)
+        response = self.client.post(self.reset_view_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/logout")
 
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ไม่สามารถเข้าถึงหน้าแก้ไขรหัสผ่านได้
+    def test_reset_view_3(self):
+        """ check in test_reset_view_3!! """
+        self.client.force_login(self.user1)
+        response = self.client.post(self.reset_view_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/")
+
+        # กรณีไม่ได้ล็อคอินเข้าสู่ระบบจะสามารถเข้าถึงหน้าลืมรหัสผ่านได้
+    def test_forgot_view_1(self):
+        """ check in test_forgot_view_1!! """
+        response = self.client.post(self.forgot_view_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/forgot_password.html')
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงหน้าลืมรหัสผ่านได้
+    def test_forgot_view_2(self):
+        """ check in test_forgot_view_2!! """
+        self.client.force_login(self.user3)
+        response = self.client.post(self.forgot_view_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/logout")
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ไม่สามารถเข้าถึงหน้าลืมรหัสผ่านได้
+    def test_forgot_view_3(self):
+        """ check in test_forgot_view_3!! """
+        self.client.force_login(self.user1)
+        response = self.client.post(self.forgot_view_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/")
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลืมรหัสผ่านได้
+    def test_forgot_1(self):
+        """ check in test_forgot_1!! """
+        self.client.force_login(self.user3)
+        response = self.client.post(self.forgot_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/logout")
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ไม่สามารถเข้าถึงการลืมรหัสผ่านได้
+    def test_forgot_2(self):
+        """ check in test_forgot_2!! """
+        self.client.force_login(self.user1)
+        response = self.client.post(self.forgot_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/")
+
+    # กรณีที่ไม่ได้ล็อคอินเข้าสู่ระบบ และกรอก email เพื่อเปลี่ยนรหัสผิด
+    def test_forgot_3(self):
+        """ check in test_forgot_3!! """
+        response = self.client.post(self.forgot_url,{'email' : '6010610003@thammahakin.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/forgot_password.html')
+        self.assertEqual(response.context["messages"],"Wrong E-mail")
+
+    # กรณีที่ไม่ได้ล็อคอินเข้าสู่ระบบ และกรอก email เพื่อเปลี่ยนรหัสถูกต้อง
+    def test_forgot_4(self):
+        """ check in test_forgot_4!! """
+        response = self.client.post(self.forgot_url,{'email' : '6010610002@thammahakin.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/reset_password.html')
+        self.assertEqual(response.context["user"],self.s2.p_mail)
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะ admin ไม่สามารถเข้าถึงการลืมรหัสผ่านได้
+    def test_reset_1(self):
+        """ check in test_reset_1!! """
+        self.client.force_login(self.user3)
+        response = self.client.post(self.reset_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/logout")
+
+    # กรณีที่ล็อคอินเข้าสู่ระบบในฐานะผู้ใช้ไม่สามารถเข้าถึงการลืมรหัสผ่านได้
+    def test_reset_2(self):
+        """ check in test_reset_2!! """
+        self.client.force_login(self.user1)
+        response = self.client.post(self.reset_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.redirect(response), "/")
+
+    # กรณีที่ไม่ได้ล็อคอินเข้าสู่ระบบ และกรอกรหัสผ่านใหม่ไม่ตรงกัน
+    def test_reset_3(self):
+        """ check in test_reset_3!! """
+        response = self.client.post(self.reset_url,{'user' : '6010610002@thammahakin.com','n_password':'01234','nc_password':'12345'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/reset_password.html')
+        self.assertEqual(response.context["message"],"Change Password fail!")
+        self.assertEqual(response.context["user"],self.s2.p_mail)
+
+    # กรณีที่ไม่ได้ล็อคอินเข้าสู่ระบบ และกรอกรหัสผ่านถูกต้อง
+    def test_forgot_4(self):
+        """ check in test_forgot_4!! """
+        response = self.client.post(self.reset_url,{'user' : '6010610002@thammahakin.com','n_password':'01234','nc_password':'01234'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response , 'users/login.html')
+        self.assertEqual(response.context["message"],"Change Password Success!")

@@ -1,7 +1,7 @@
 .add-container{
     position: absolute;
     width: 100vw;
-    min-height: 1000px;
+    min-height: 100vh;
     background-image: url("/static/image/website-bg.png");
     font-family: 'Kanit', sans-serif;
 }
@@ -36,29 +36,20 @@
     margin-left: 100px;
 }
 
-/*.side-nav2{*/
-/*    display: flex;*/
-/*    margin: 0px 20px;*/
-/*    flex-direction: column;*/
-/*    font-size: 18px;*/
-/*    width: 172px;*/
-/*}*/
-
-/*.side-nav2 a{*/
-/*    color: #fff;*/
-/*    background-color:  #ff4655;*/
-/*    padding: 10px 0px 10px 20px;*/
-/*    text-decoration: none;*/
-/*    margin: 10px;*/
-/*    border-radius: 66px;*/
-/*}*/
-
-/*.side-nav2 a:first-child{*/
-/*    background-color: #88ddbb;*/
-/*}*/
-
 .add-price{
     display: flex;
+    align-items: center;
+}
+.add-price input{
+    width: 77px;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #adb5bd;
+    border-radius: 0px 4px 4px 0px !important;
+    margin: 0;
+    outline: none;
 }
 
 .input-group{
@@ -74,4 +65,9 @@
 }
 .form-control:focus{
     outline: none;
+}
+
+.err-msg{
+    color: #dc3545;
+    margin-bottom: 5px;
 }

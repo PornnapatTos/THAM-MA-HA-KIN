@@ -1,5 +1,6 @@
 .edit-container{
     width: 100vw;
+    min-height: 100vh;
     background-image: url("/static/image/website-bg.png");
     font-family: 'Kanit', sans-serif;
     position: absolute;
@@ -14,13 +15,35 @@
     margin-top: 20px;
     margin-bottom: 50px;
     margin-left: 78px;
+    list-style: none;
 }
-.edit-product img{
-    height: 180px;
-    width: 180px;
-    margin: 10px;
+
+.img-realsize img{
+    max-height: 220px;
+    margin: 15px;
 }
-.edit-product input{
+
+.checkbox{
+    display: flex;
+    align-items: center;
+}
+.checkbox input{
+    width: 25px;
+    height: 25px;
+}
+.btn-edit button{
+    width: 60px;
+    border: 2px solid #fce27c;
+    border-radius: 20px;
+    background-color: #fce27c;
+    color: #495057;
+    outline: none;
+}
+.btn-edit button:hover{
+    border: 1px solid #4d90fe;
+    background-color: #4d90fe;
+}
+.form-field input{
     margin: 5px 0px;
     width: 268px;
     height: 30px;
@@ -35,15 +58,17 @@
 }
 .edit-cate{
     display: flex;
+    align-items: center;
 }
 .edit-cate select{
-    margin: 5px 0px 5px 12px;
+    margin: 5px 0px 5px 5px;
     height: 28px;
     border: 1px solid #6c757d;
     border-radius: 8px;
 }
 .edit-price{
     display: flex;
+    align-items: center;
 }
 
 .edit-price input{
@@ -53,7 +78,7 @@
     padding: 5px 20px;
     background-color: #FFFFFF;
     border: 1px solid #adb5bd;
-    border-radius: 0px 8px 8px 0px;
+    border-radius: 0px 4px 4px 0px;
     margin: 0;
     outline: none;
 }
@@ -66,4 +91,8 @@
     width: 100px;
     margin: 10px;
     background-color: #fce27c;
+}
+.img-edit-sh{
+    display: flex;
+    flex-wrap: wrap;
 }

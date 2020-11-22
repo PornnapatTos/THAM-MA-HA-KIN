@@ -9,16 +9,20 @@
             <form action="{% url 'login' %}" method="POST" class="input-form" >
                 {% csrf_token %}
                 <div class="head-login">
-                    <img src="static/image/Icon.png">
+                    <img src="static/image/Icon-v2.png">
                     <h4>THAM-MA-HA-KIN</h4>
                     <p>Please login to continue.</p>
                 </div>
                 <input type="text" placeholder="username" name="username" class="user">
                 <input type="password" placeholder="password" name="password" class="pwd">
                 <input type="submit" value="Login" class="submit">
+                <div class="forgot-pwd">
+                    <a href="{% url 'forgot_view' %}" style="color: #9b9b9b;">forgot password</a>
+                </div>
                 <div class="footer-login">
                     <p>Don't have an account?</p>
                     <button><a href="{% url 'register' %}">Register</a></button>
+
                 </div>
 
             </form>

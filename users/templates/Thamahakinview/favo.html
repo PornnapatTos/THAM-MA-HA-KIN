@@ -7,28 +7,28 @@
         {% endif %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <div class="top-nav">
-                <a href="{% url 'index' %}">
-                    <img src="static/image/Icon.png">
-                    <h1>THAM-MA-HA-KIN</h1>
-                </a>
-                <a href="{% url 'index' %}">Home</a>
-                <a href="{% url 'about_view' %}">About</a>
-                <a href="{% url 'thammart' %}">THAMMART</a>
-                <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'index' %}">
+                <img src="static/image/Icon.png">
+                <h1>THAM-MA-HA-KIN</h1>
+            </a>
+
+            <div class="navbar-right">
+                <a href="{% url 'logout' %}" style="color: #f74a5b;">Logout</a>
+            </div>
         </div>
         <div class="fav-product">
             <ul class="nav nav-tabs">
-                  <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">Home</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
+                </li>
+                <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="favo-tab" data-toggle="tab" href="#favo" role="tab" aria-controls="favo" aria-selected="true">
                         Favorite
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" color="#dc3545">
                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                         </svg>
                         </a>
-                  </li>
+                 </li>
             </ul>
             <div class="product">
                 {% if not favos %}
@@ -37,14 +37,14 @@
                 </div>
                 {% else %}
                     {% for product,images in favos %}
-                        <div class="card" style="width: 16rem;">
-                            {% for image in images %}
-                                <div class="frame">
-                                    <img src="{{image}}">
-                                </div>
-                            {% endfor %}
-                            <div class="link-detail">
-                                <a href="{% url 'detail' product.id %}">
+                        <div class="link-detail">
+                            <a href="{% url 'detail' product.id %}">
+                                <div class="card" style="width: 16rem;">
+                                    <div class="frame">
+                                        {% for image in images %}
+                                            <img src="{{image}}" class="card-img-top">
+                                        {% endfor %}
+                                    </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.t_name}}</h5>
                                         <h6 class="card-text">฿ {{product.t_price}}</h6>
@@ -53,19 +53,18 @@
                                                 {% csrf_token %}
                                                 <button name="remove_favo" type="submit" value="{{ product.id }}">
                                                     remove
-                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" color="#dc3545">
                                                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                                     </svg>
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     {% endfor %}
                 {% endif %}
             {% endblock %}
-
         </div>
     </div>

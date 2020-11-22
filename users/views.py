@@ -11,7 +11,10 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 import os
 import ast
-
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+import json
+from random import randint
 # Connect google drive api
 
 from Google import Create_Service
@@ -40,6 +43,7 @@ def add_user(request) :
         user_id =  request.POST["username"]
         name = request.POST["name"]
         sname = request.POST["sname"]
+        mail = request.POST["mail"]
         password = request.POST["password"]
         c_password = request.POST["cpassword"]
         if user_id and name and sname and password and c_password :
@@ -49,7 +53,7 @@ def add_user(request) :
                 if not user:
                     if password == c_password :
                         User.objects.create_user(username=user_id, password=password,)
-                        Profile.objects.create(p_user=user_id,p_name=name,p_sname=sname)
+                        Profile.objects.create(p_user=user_id,p_name=name,p_sname=sname,p_mail=mail)
                         return render(request, "users/login.html", {
                             "message": "register success!"
                         })
@@ -78,7 +82,7 @@ def index(request):
         if not request.user.is_staff :
             products = Thammart.objects.all()
             if request.method == "POST" :
-                if 'intro' in request.POST: products = Thammart.objects.all()
+                if 'intro' in request.POST: products = Thammart.objects.order_by('t_count').reverse()[:10]
                 elif 'food' in request.POST: products = Thammart.objects.filter(t_cat='food')
                 elif 'closet' in request.POST: products = Thammart.objects.filter(t_cat='closet')
                 elif 'accessary' in request.POST: products = Thammart.objects.filter(t_cat='accessary')
@@ -97,10 +101,6 @@ def image(products) :
         images = product.t_image.split()
         path = []
         for image in images:
-            image = image.replace("[","")
-            image = image.replace("]","")
-            image = image.replace("'","")
-            image = image.replace(",","")
             path.append(f'https://drive.google.com/uc?id={image}')
         paths.append(path)
     return paths
@@ -143,7 +143,7 @@ def favorite_view(request):
             return HttpResponseRedirect(reverse("logout"))
     else :
         return HttpResponseRedirect(reverse("login"))
-
+@csrf_exempt
 def add_favorite(request):
     if request.user.is_authenticated :
         if not request.user.is_staff :
@@ -163,6 +163,7 @@ def add_favorite(request):
                 "products" : list(zip(products,image(products))),
                 "messages" : message,
             })
+            # return HttpResponse(message)
         else :
             return HttpResponseRedirect(reverse("logout"))
     else :
@@ -212,7 +213,7 @@ def add_view(request):
 
 def uploadImage(request, fileToUpload):
     mime_type = ''
-    items = []
+    items = ''
     for file in request.FILES.getlist('fileToUpload'):
         typefile = file.name
         typefile = typefile[(typefile.rfind('.')+1):len(typefile)]
@@ -236,7 +237,7 @@ def uploadImage(request, fileToUpload):
             fields='id'
             ).execute()
         item = results.get('id')
-        items.append(item)
+        items += item + ' '
         os.remove(path)
     return items
 
@@ -274,10 +275,11 @@ def add_product(request):
                         })
                     else:
                         Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items,t_channel=t_channel)
-                    products = Thammart.objects.all()
-                    return render(request, "users/index.html", {
-                    "products" : list(zip(products,image(products))),
-                    })
+                    # products = Thammart.objects.all()
+                    # return render(request, "users/index.html", {
+                    # "products" : list(zip(products,image(products))),
+                    # })
+                    return HttpResponseRedirect(reverse("thammart"))
                 else:
                     error['image'] = 'At least 1 sample image is required.'
                 if error:
@@ -299,10 +301,6 @@ def remove_product(request):
                 productIm = Thammart.objects.get(id=r_product)
                 imagess = productIm.t_image.split()
                 for imagea in imagess:
-                    imagea = imagea.replace("[","")
-                    imagea = imagea.replace("]","")
-                    imagea = imagea.replace("'","")
-                    imagea = imagea.replace(",","")
                     if imagea == '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8':
                         pass
                     else:
@@ -340,10 +338,6 @@ def detail(request,product_id):
             images = product.t_image.split()
             path = []
             for image in images:
-                image = image.replace("[","")
-                image = image.replace("]","")
-                image = image.replace("'","")
-                image = image.replace(",","")
                 path.append(f'https://drive.google.com/uc?id={image}')
             channel = ["Line","Instagram","facebook","Phone Number"]
             return render(request, "Thamahakinview/detail.html",{
@@ -366,10 +360,6 @@ def edit(request):
                 path = []
                 key=[]
                 for image in images:
-                    image = image.replace("[","")
-                    image = image.replace("]","")
-                    image = image.replace("'","")
-                    image = image.replace(",","")
                     key.append(image)
                     path.append(f'https://drive.google.com/uc?id={image}')
                 channel = ["Line","Instagram","facebook","Phone Number"]
@@ -413,12 +403,8 @@ def edit_product(request):
                 images = product.t_image.split()
                 pathgoogle = []
                 preitems = []
-                items = []
+                items = ''
                 for image in images:
-                    image = image.replace("[","")
-                    image = image.replace("]","")
-                    image = image.replace("'","")
-                    image = image.replace(",","")
                     preitems.append(image)
                 if request.POST.get('imageToDelete', False):
                     print('imageToDelete')
@@ -436,7 +422,7 @@ def edit_product(request):
                 else:
                     print('else imageToDelete')
                     for image in preitems:
-                        items.append(image)
+                        items += image + ' '
                         pathgoogle.append(f'https://drive.google.com/uc?id={image}')
                 if request.POST.get('fileToUpload', True):
                     fileToUpload = request.FILES["fileToUpload"]
@@ -449,14 +435,17 @@ def edit_product(request):
                             "channels" : list(zip(channel,ast.literal_eval(product.t_channel))),
                             "message" : "upload only .phr and .jpg/.jpge"
                         })
+                    itemUpload = itemUpload.split()
                     for itemUp in itemUpload:
-                        items.append(itemUp)
+                        items += itemUp + ' '
                         pathgoogle.append(f'https://drive.google.com/uc?id={itemUp}')
-                if items == []:
+                if items == '':
                     product.t_image = '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8'
+                    pathgoogle.append('https://drive.google.com/uc?id=1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8')
                 else:
-                    if '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8' in items:
-                        items.remove('1JbgCT6eguA135YZIjhAWc3fGDu-E7__S')
+                    check = items.find('1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8')
+                    if check == '-1':
+                        items.replace('1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8', '')
                         pathgoogle.remove('https://drive.google.com/uc?id=1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8')
                     product.t_image = items
                 product.save()
@@ -468,8 +457,100 @@ def edit_product(request):
         else :
             return HttpResponseRedirect(reverse("logout"))
 
-# def edit_profile_view(request):
-#     return render(request, "users/edit_profile.html")
+def forgot_view(request):
+    if not request.user.is_authenticated :
+        return render(request, "users/forgot_password.html")
+    else :
+        if not request.user.is_staff :
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return HttpResponseRedirect(reverse("logout"))
 
-# def edit_profile(request):
-#     return render(request, "users/edit_rpofile.html")
+def forgot(request):
+    if not request.user.is_authenticated :
+            if request.method == "POST" :
+                mail = request.POST["email"]
+                profile = Profile.objects.filter(p_mail=mail)
+                # print(profile)
+                if not profile :
+                    print("hello")
+                    return render(request, 'users/forgot_password.html',{
+                        "messages" : "Wrong E-mail",
+                    })
+                else :
+                    profile = Profile.objects.get(p_mail=mail)
+                    digit = randint(100000, 999999)
+                    print(digit)
+                    # send_mail(
+                    #     'Change Password',
+                    #     str(digit),
+                    #     'pornnapat.tos@gmail.com',
+                    #     [profile.p_mail],
+                    #     fail_silently=False,
+                    # )
+                    return render(request, "users/reset_password.html",{
+                        "user" : profile.p_mail,
+                        "digit" : digit,
+                    })
+    else :
+        if not request.user.is_staff :
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return HttpResponseRedirect(reverse("logout"))
+
+def reset_view(request):
+    if not request.user.is_authenticated :
+        return HttpResponseRedirect(reverse("login"))
+    else :
+        if not request.user.is_staff :
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return HttpResponseRedirect(reverse("logout"))
+
+def reset(request):
+    if not request.user.is_authenticated :
+        if request.method == "POST" :
+            n_password = request.POST["n_password"]
+            nc_password = request.POST["nc_password"]
+            profile = Profile.objects.get(p_mail=request.POST["user"])
+            if n_password==nc_password :
+                user = User.objects.get(username=profile.p_user)
+                # print(user)
+                user.set_password(n_password)
+                user.save()
+                return render(request, "users/login.html", {
+                        "message": "Change Password Success!"
+                    })
+            else :
+                return render(request, "users/reset_password.html", {
+                        "message": "Change Password fail!",
+                        "user" : profile.p_mail,
+                    })
+    else :
+        if not request.user.is_staff :
+            return HttpResponseRedirect(reverse("index"))
+        else :
+            return HttpResponseRedirect(reverse("logout"))
+
+# def verify(request):
+#     if not request.user.is_authenticated :
+#         if request.method == "POST" :
+#             email = request.POST["email"]
+#             verify = request.POST["verify"]
+#             digit = request.POST["digit"]
+#             profile = Profile.objects.get(p_mail=request.POST["email"])
+#             if verify == digit :
+#                 return render(request, "users/reset_password.html",{
+#                     "user" : profile.p_mail,
+#                 })
+#             else :
+#                 return render(request, "users/check_verify.html",{
+#                         "user" : profile.p_mail,
+#                         "digit" : digit,
+#                         "messages" : "Wrong Verify",
+#                     })
+#     else :
+#         if not request.user.is_staff :
+#             return HttpResponseRedirect(reverse("index"))
+#         else:
+#             return HttpResponseRedirect(reverse("logout"))

@@ -20,6 +20,10 @@ urlpatterns = [
     path('search', views.search, name='search'),
     path('edit', views.edit, name='edit'),
     path('edit_product', views.edit_product, name='edit_product'),
-    # path('edit_profile_view', views.edit_profile_view, name='edit_profile_view'),
-    # path('edit_profile', views.edit_profile, name='edit_profile'),
+    path('reset_view', views.reset_view, name='reset_view'),
+    path('reset', views.reset, name='reset'),
+    path('forgot_view', views.forgot_view, name='forgot_view'),
+    path('forgot', views.forgot, name='forgot'),
+    # path('verify', views.verify, name='verify'),
+    # path('check_verify', views.check_verify, name='check_verify'),
 ]

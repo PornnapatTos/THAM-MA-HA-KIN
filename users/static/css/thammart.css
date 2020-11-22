@@ -1,28 +1,33 @@
 .thammart-container{
     position: absolute;
     width: 100vw;
-    min-height: 1000px;
+    min-height: 100vh;
     background-image: url("/static/image/website-bg.png");
     font-family: 'Kanit', sans-serif;
 }
 
 .mymart{
     margin-top: 90px;
+}
+.mymart ul{
     margin-left: 100px;
 }
 
 .product{
     display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: center;
-    grid-gap: 40px;
+    grid-template-columns: auto auto auto auto;
     margin-top: 20px;
     margin-bottom: 50px;
+    justify-content: flex-start;
+    grid-gap: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1100px;
 }
 
 .product img{
     height: 180px;
-    width: 180px;
+    max-width: 260px;
     margin: 0;
 }
 
