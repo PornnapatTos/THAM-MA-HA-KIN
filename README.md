@@ -14,7 +14,7 @@
 ## URL HEROKU
 http://thammahakin.herokuapp.com/
 
-### ขั้นตอนการเข้าใช้งานระบบ THAMMA-HA-KIN
+## ขั้นตอนการเข้าใช้งานระบบ THAMMA-HA-KIN
 #### การ Register
 1.ในกรณีที่เข้าใช้งานเป็นครั้งแรกจะต้องมีการ Register โดยกดปุ่ม Register
 
