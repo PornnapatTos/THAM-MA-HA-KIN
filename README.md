@@ -17,7 +17,9 @@ http://thammahakin.herokuapp.com/
 
 ### สำหรับการเข้าใช้งานในส่วนของ admin
 http://thammahakin.herokuapp.com/admin
+
 username : admin
+
 password : 1234
 
 ## ขั้นตอนการเข้าใช้งานระบบ THAMMA-HA-KIN
