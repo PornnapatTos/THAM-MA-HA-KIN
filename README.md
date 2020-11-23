@@ -12,7 +12,13 @@
 5.นาย สมปราชญ์ เนตรสมสว่าง 6010680210
 
 ## URL HEROKU
+###  สำหรับการเข้าใช้งาน THAMMAHAKIN
 http://thammahakin.herokuapp.com/
+
+### สำหรับการเข้าใช้งานในส่วนของ admin
+http://thammahakin.herokuapp.com/admin
+username : admin
+password : 1234
 
 ## ขั้นตอนการเข้าใช้งานระบบ THAMMA-HA-KIN
 #### การ Register
