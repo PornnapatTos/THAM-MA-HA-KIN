@@ -29,9 +29,8 @@ service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPE)
 
 # Path for temporaryfile image
 PATH_IMAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/temporaryfile')
-print(PATH_IMAGE)
-# Create your views here.
 
+# Create your views here.
 def register_view(request):
     if not request.user.is_authenticated :
         return render(request, "users/register.html")
@@ -49,7 +48,6 @@ def add_user(request) :
         if user_id and name and sname and password and c_password :
             if user_id.isnumeric() :
                 user = Profile.objects.filter(p_user=user_id)
-                # print(user)
                 if not user:
                     if password == c_password :
                         User.objects.create_user(username=user_id, password=password,)
@@ -111,7 +109,6 @@ def image(products) :
 def login_view(request):
     if request.user.is_authenticated :
         if not request.user.is_staff :
-            print("in")
             return HttpResponseRedirect(reverse("index"))
         else :
             return HttpResponseRedirect(reverse("logout"))
@@ -138,7 +135,6 @@ def favorite_view(request):
     if request.user.is_authenticated :
         if not request.user.is_staff :
             favorite = Profile.objects.get(p_user = request.user.username)
-            # print(favorite.p_fav.all())
             return  render(request, "Thamahakinview/favo.html", {
                 "favos": list(zip(favorite.p_fav.all(),image(favorite.p_fav.all()))),
             })
@@ -157,7 +153,6 @@ def add_favorite(request):
                     profile.p_fav.add(product)
                     product.t_count += 1
                     product.save()
-                    # Thammart.objects.get(id=request.POST["fav"]).update(t_count=(product.t_count+1))
                     message = "Successful Add Favorite Product."
                 else :
                     message = "Product has already in Your Favorite."
@@ -167,7 +162,6 @@ def add_favorite(request):
                 "messages" : message,
                 "favorite" : profile.p_fav.all(),
             })
-            # return HttpResponse(message)
         else :
             return HttpResponseRedirect(reverse("logout"))
     else :
@@ -184,7 +178,6 @@ def remove_favorite(request):
                     message = "Successful Remove Favorite Product."
                     product.t_count -= 1
                     product.save()
-                    # Thammart.objects.get(id=request.POST["remove_favo"]).update(t_count=(product.t_count-1))
                 else :
                     message = "Product has not already in Your Favorite."
             favorite = Profile.objects.get(p_user = request.user.username)
@@ -279,10 +272,6 @@ def add_product(request):
                         })
                     else:
                         Thammart.objects.create(t_user=request.user,t_name=product,t_detail=detail,t_cat=cat,t_count=0,t_price=price,t_image=items,t_channel=t_channel)
-                    # products = Thammart.objects.all()
-                    # return render(request, "users/index.html", {
-                    # "products" : list(zip(products,image(products))),
-                    # })
                     return HttpResponseRedirect(reverse("thammart"))
                 else:
                     error['image'] = 'At least 1 sample image is required.'
@@ -333,7 +322,6 @@ def thammart(request):
             return HttpResponseRedirect(reverse("logout"))
 
 def detail(request,product_id):
-    print(product_id)
     if not request.user.is_authenticated :
         return HttpResponseRedirect(reverse("login"))
     else :
@@ -382,7 +370,6 @@ def search(request):
         if not request.user.is_staff :
             if request.method == "POST" :
                 product = request.POST["product"]
-                print(product)
                 products = Thammart.objects.filter(t_name__contains=product)
                 return render(request, "users/index.html", {
                     "products" : list(zip(products,image(products))),
@@ -411,7 +398,6 @@ def edit_product(request):
                 for image in images:
                     preitems.append(image)
                 if request.POST.get('imageToDelete', False):
-                    print('imageToDelete')
                     imageToDelete = request.POST.getlist('imageToDelete')
                     for image in imageToDelete:
                         if image == '1jOY4xYqxS26Yu4RX9FANs46PZOcpCkZ8':
@@ -424,7 +410,6 @@ def edit_product(request):
                         items.append(image)
                         pathgoogle.append(f'https://drive.google.com/uc?id={image}')
                 else:
-                    print('else imageToDelete')
                     for image in preitems:
                         items += image + ' '
                         pathgoogle.append(f'https://drive.google.com/uc?id={image}')
@@ -475,9 +460,7 @@ def forgot(request):
             if request.method == "POST" :
                 mail = request.POST["email"]
                 profile = Profile.objects.filter(p_mail=mail)
-                # print(profile)
                 if not profile :
-                    # print("hello")
                     return render(request, 'users/forgot_password.html',{
                         "messages" : "Wrong E-mail",
                     })
@@ -509,7 +492,6 @@ def reset(request):
             profile = Profile.objects.get(p_mail=request.POST["user"])
             if n_password==nc_password :
                 user = User.objects.get(username=profile.p_user)
-                # print(user)
                 user.set_password(n_password)
                 user.save()
                 return render(request, "users/login.html", {

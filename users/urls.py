@@ -24,6 +24,4 @@ urlpatterns = [
     path('reset', views.reset, name='reset'),
     path('forgot_view', views.forgot_view, name='forgot_view'),
     path('forgot', views.forgot, name='forgot'),
-    # path('verify', views.verify, name='verify'),
-    # path('check_verify', views.check_verify, name='check_verify'),
 ]
