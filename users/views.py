@@ -21,9 +21,9 @@ from Google import Create_Service
 CLIENT_SECRET_FILE = 'client_secret.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
-SCOPE = ['https://www.googleapis.com/auth/drive']
+SCOPE = ['link of google api']
 
-floder_id = '18SCTkSPkw6Kiba2wgXkRfbd1mWnhIOTx'
+folder_id = 'your folder id'
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPE)
 
@@ -216,7 +216,7 @@ def uploadImage(request, fileToUpload):
         typefile = typefile[(typefile.rfind('.')+1):len(typefile)]
         file_medate = {
             'name': file.name,
-            'parents':  [floder_id]
+            'parents':  [folder_id]
         }
         if(typefile == 'png'):
             mime_type = 'image/png'
