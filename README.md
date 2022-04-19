@@ -15,6 +15,10 @@
 ###  สำหรับการเข้าใช้งาน THAMMAHAKIN
 http://thammahakin.herokuapp.com/
 
+username : 6010610001
+
+password : aaa123456789
+
 ### สำหรับการเข้าใช้งานในส่วนของ admin
 http://thammahakin.herokuapp.com/admin
 
